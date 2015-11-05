@@ -1,16 +1,34 @@
 from django.db import models
-
-class Flower(models.Model):
-    name = models.CharField(max_length=200)
-    desc = models.TextField()
-    info = models.TextField()
-    img = models.TextField()
-
-    def __str__(self):
-        return self.name
+from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
+
+class Type(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+class Flower(models.Model):
+    name = models.CharField(max_length=200)
+    desc = models.TextField()
+    info = models.TextField()
+    img = models.CharField(max_length=300)
+    category = models.ForeignKey(Category, null=True)
+    type = models.ForeignKey(Type, null=True)
+    created = models.DateTimeField(editable=False, default=timezone.now())
+    modified = models.DateTimeField(default=timezone.now())
+    
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        return super(Flower, self).save(*args, **kwargs)
