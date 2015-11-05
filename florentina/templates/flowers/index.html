@@ -1,10 +1,14 @@
 <div>
     {% for flower in flowers %}
     <ul>
-        <li>{{ flower.id }} </li>
-        <li>{{ flower.name }} </li>
-        <li>{{ flower.desc }} </li>
-        <li>{{ flower.info }} </li>
+        <li>id: {{ flower.id }} </li>
+        <li>name: {{ flower.name }} </li>
+        <li>description: {{ flower.desc }} </li>
+        <li>info: {{ flower.info }} </li>
+        <li>category: {{ flower.category }} </li>
+        <li>type: {{ flower.type }} </li>
+        <li>created: {{ flower.created}} </li>
+        <li>modified: {{ flower.modified}} </li>
     </ul>
     {% endfor %}
 </div>
