@@ -64,3 +64,4 @@ docs/_build/
 # PyBuilder
 target/
 *.sqlite3
+florentina/static/media/images
