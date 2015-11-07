@@ -18,6 +18,7 @@ class Flower(models.Model):
     desc = models.TextField()
     info = models.TextField()
     img = models.CharField(max_length=300)
+    img = models.ImageField(upload_to='images/%Y/%m/%d')
     category = models.ForeignKey(Category, null=True)
     type = models.ForeignKey(Type, null=True)
     created = models.DateTimeField(editable=False, default=timezone.now())
