@@ -1,0 +1,18 @@
+<div>
+    <h2>{{ category }}</h2>
+    <h3>sorted by: {{ sorting }}</h3>
+    {% for flower in flowers %}
+    <ul>
+            <li>id: {{ flower.id }} </li>
+            <li>name: <a href="{% url 'detail' flower.id %}">{{ flower.name }}</a></li>
+            <li>description: {{ flower.desc }} </li>
+            <li>info: {{ flower.info }} </li>
+            <li>category: {{ flower.category }} </li>
+            <li>type: {{ flower.type }} </li>
+            <li>created: {{ flower.created}} </li>
+            <li>modified: {{ flower.modified}} </li>
+            <li>image: <a href="{{ flower.img.url}}">link to image</a></li>
+            <li>popularity: {{ flower.popularity }} </li>
+    </ul>
+    {% endfor %}
+</div>
