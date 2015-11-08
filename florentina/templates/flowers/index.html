@@ -1,15 +1,21 @@
 <div>
-    {% for flower in flowers %}
+    {% regroup flowers|dictsort:"category" by category as flower_list %}
     <ul>
-        <li>id: {{ flower.id }} </li>
-        <li>name: <a href="{% url 'detail' flower.id %}">{{ flower.name }}</a></li>
-        <li>description: {{ flower.desc }} </li>
-        <li>info: {{ flower.info }} </li>
-        <li>category: {{ flower.category }} </li>
-        <li>type: {{ flower.type }} </li>
-        <li>created: {{ flower.created}} </li>
-        <li>modified: {{ flower.modified}} </li>
-        <li>image: <a href="{{ flower.img.url}}">link to image</a></li>
-    </ul>
+    {% for group in flower_list %}
+        <li>{{ group.grouper }}</li>
+        {% for flower in group.list %}
+        <ul>
+                <li>id: {{ flower.id }} </li>
+                <li>name: <a href="{% url 'detail' flower.id %}">{{ flower.name }}</a></li>
+                <li>description: {{ flower.desc }} </li>
+                <li>info: {{ flower.info }} </li>
+                <li>category: {{ flower.category }} </li>
+                <li>type: {{ flower.type }} </li>
+                <li>created: {{ flower.created}} </li>
+                <li>modified: {{ flower.modified}} </li>
+                <li>image: <a href="{{ flower.img.url}}">link to image</a></li>
+        </ul>
+        {% endfor %}
     {% endfor %}
+    </ul>
 </div>
