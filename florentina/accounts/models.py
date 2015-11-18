@@ -1,9 +1,10 @@
 from django.db import models
-from flowers.models import Flower
-
+from django.forms import ModelForm
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+
+from flowers.models import Flower
 
 
 class CustomUserManager(BaseUserManager):
@@ -28,7 +29,6 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password, True, True, **extra_fields)
 
-
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     Custom User model with admin-compliant permission.
@@ -42,7 +42,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     cart = models.ManyToManyField(Flower, related_name="cart+")
     likes = models.ManyToManyField(Flower, related_name="likes+")
 
-    is_staff = models.BooleanField()
+    is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
 
@@ -70,3 +70,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __unicode__(self):
         return self.get_full_name()
+
+class  CustomUserForm(ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'email',
+            'first_name',
+            'last_name',
+            'company',
+            'phone']
+
