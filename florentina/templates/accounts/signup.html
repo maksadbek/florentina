@@ -1,6 +1,9 @@
-<h5>{{ error }}</h5>
+{% for key, msg in validation.items %}
+<h5><strong>{{key}}</strong>{{msg }}</h5>
+{% endfor %}
 <form action="/accounts/create/" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="submit" />
 </form>
+{{ user.first_name}}

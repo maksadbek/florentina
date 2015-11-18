@@ -74,10 +74,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class  CustomUserForm(ModelForm):
     class Meta:
         model = CustomUser
-        fields = [
-            'email',
-            'first_name',
-            'last_name',
-            'company',
-            'phone']
-
+        fields = [ 'email', 'first_name', 'last_name', 'company', 'phone', 'password']
