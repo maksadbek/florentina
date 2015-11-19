@@ -48,10 +48,7 @@ def signout(request):
     return redirect('accounts:signin')
 
 def profile(request):
-    context = {}
-    if request.user.is_authenticated():
-        context = {'user':request.user.email}
-        return render(request, 'accounts/profile.html', context)
-    else:
-        context = {'user':'not authenticated'}
-        return render(request, 'accounts/profile.html', context)
+    if not request.user.is_authenticated():
+        return redirect('accounts:signin')
+    context = {'user':request.user.email}
+    return render(request, 'accounts/profile.html', context)
