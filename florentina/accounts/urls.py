@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^signout/', views.signout, name='signout'),
     url(r'^profile/', views.user, name='profile'),
     url(r'^login/', views.auth, name='login'),
-    url(r'^logout/', views.logout, name='logout'),
+    url(r'^logout/', views.signout, name='logout'),
 ]

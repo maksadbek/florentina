@@ -17,43 +17,35 @@ def create(request):
     user = CustomUserForm(request.POST)
     if not user.is_valid():
         context = {'error':'fuck', 'user':user, 'validation':user.errors}
-        print user.errors
-        print "yes"
-        return render(request, 'accounts/signup.html', context)
+        return redirect('accounts:signup', context)
     else: 
         newuser = user.save()
         newuser.set_password(newuser.password)
         newuser.save()
         context = {'user': newuser.email}
-        print "no"
-        return render(request, 'accounts/user.html', context)
+        return redirect('accounts:user', context)
 
 def signin(request):
     """ login user """
     if not request.user.is_authenticated(): 
         return render(request, 'accounts/signin.html')
-
     return redirect('accounts:profile')
 
 def auth(request):
     email = request.POST['email']
     password = request.POST['password']
-    print email, password
-
     user = authenticate(email=email, password=password)
 
     if user is not None:
         login(request, user)
-        c= {'user', user.email}
-        print user.email
-        return render(request, 'accounts/user.html')
+        return redirect('accounts:profile')
     else:
         context = {'error':'invalid email or password'}
         return redirect('accounts:signin')
 
 def signout(request):
     logout(request)
-    return redirect(request, 'accounts:signin')
+    return redirect('accounts:signin')
 
 def user(request):
     if request.user.is_authenticated():
