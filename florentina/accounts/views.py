@@ -3,25 +3,21 @@ from accounts.models import CustomUserForm
 from django.contrib.auth import authenticate, login, logout
 
 def signup(request):
-    """ create user"""
+    """ create user """
     if request.user.is_authenticated():
         user = request.user.email
         context = {'user':user}
         return redirect('accounts:profile')
 
     form = CustomUserForm()
-    context = {'form': form, 'error':''}
+    context = {'form': form}
     return render(request, 'accounts/signup.html', context)
 
 def create(request):
     user = CustomUserForm(request.POST, request.FILES)
     if not user.is_valid():
-        context = {
-            'error':'fuck', 
-            'user':user, 
-            'validation':user.errors
-        }
-        return redirect('accounts:signup', context)
+        context = {'form':user}
+        return render(request, 'accounts/signup.html', context)
     else: 
         newuser = user.save()
         newuser.set_password(newuser.password)
@@ -44,7 +40,7 @@ def auth(request):
         return redirect('accounts:profile')
     else:
         context = {'error':'invalid email or password'}
-        return redirect('accounts:signin')
+        return render(request, 'accounts/signin.html', context)
 
 def signout(request):
     logout(request)

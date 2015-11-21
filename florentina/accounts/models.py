@@ -102,11 +102,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.get_full_name()
 
 class  CustomUserForm(ModelForm):
+    password_verify = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = CustomUser
-        password_verify = forms.CharField(
-            widget=forms.PasswordInput()
-        )
         
         fields = [ 
             'email', 

@@ -1,4 +1,6 @@
-{{ error }}
+{% if error %}
+    <h5>{{ error }}</h5>
+{% endif %}
 <form action="/accounts/login/" method="post">
     {% csrf_token %}
     <input type="text" name="email" />
