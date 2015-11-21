@@ -6,7 +6,6 @@
         {% for flower in group.list %}
         <ul>
                 <li>id: {{ flower.id }} </li>
-                <li>name: <a href="{% url 'detail' flower.id %}">{{ flower.name }}</a></li>
                 <li>description: {{ flower.desc }} </li>
                 <li>info: {{ flower.info }} </li>
                 <li>category: {{ flower.category }} </li>

@@ -1,2 +1,8 @@
 <a href="{% url 'accounts:logout' %}">logout</a>
-<li>{{ user }}</li>
+<li>{{ user.first_name}}</li>
+<li>{{ user.last_name}}</li>
+<li>{{ user.email }}</li>
+<li>{{ user.phone }}</li>
+<li>{{ user.company }}</li>
+<li>{{ user.email }}</li>
+<img src="{{ user.img.url }}" />

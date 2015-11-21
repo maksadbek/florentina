@@ -13,4 +13,4 @@ urlpatterns = [
     url(r'^profile/', views.profile, name='profile'),
     url(r'^login/', views.auth, name='login'),
     url(r'^logout/', views.signout, name='logout'),
-]
+] + static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)

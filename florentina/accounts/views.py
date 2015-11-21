@@ -14,16 +14,19 @@ def signup(request):
     return render(request, 'accounts/signup.html', context)
 
 def create(request):
-    user = CustomUserForm(request.POST)
+    user = CustomUserForm(request.POST, request.FILES)
     if not user.is_valid():
-        context = {'error':'fuck', 'user':user, 'validation':user.errors}
+        context = {
+            'error':'fuck', 
+            'user':user, 
+            'validation':user.errors
+        }
         return redirect('accounts:signup', context)
     else: 
         newuser = user.save()
         newuser.set_password(newuser.password)
         newuser.save()
-        context = {'user': newuser.email}
-        return redirect('accounts:user', context)
+        return redirect('accounts:profile')
 
 def signin(request):
     """ login user """
@@ -50,5 +53,5 @@ def signout(request):
 def profile(request):
     if not request.user.is_authenticated():
         return redirect('accounts:signin')
-    context = {'user':request.user.email}
+    context = {'user':request.user}
     return render(request, 'accounts/profile.html', context)

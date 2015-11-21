@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from django import forms
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
@@ -8,7 +9,13 @@ from flowers.models import Flower
 
 
 class CustomUserManager(BaseUserManager):
-    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(
+        self, 
+        email, 
+        password, 
+        is_staff, 
+        is_superuser, 
+        **extra_fields):
         """
         Creates and saves a User with the given email and password.
         """
@@ -16,18 +23,37 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError('The given email must be set')
 
-        user = self.model(email=self.normalize_email(email), is_staff=is_staff,
-                          is_active=True, is_superuser=is_superuser,
-                          last_login=now, date_joined=now, **extra_fields)
+        user = self.model(
+            email=self.normalize_email(email), 
+            is_staff=is_staff,
+            is_active=True, 
+            is_superuser=is_superuser,
+            last_login=now, date_joined=now, **extra_fields
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, False, False, **extra_fields)
+    def create_user(
+        self, 
+        email, 
+        password=None, 
+        **extra_fields
+        ):
+        return self._create_user(
+                email, 
+                password, 
+                False, 
+                False, 
+                **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, True, True, **extra_fields)
+        return self._create_user(
+                email, 
+                password, 
+                True, 
+                True, 
+                **extra_fields)
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
@@ -39,6 +65,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30)
     company = models.CharField(max_length=255)
     phone = models.CharField(max_length=11)
+    img = models.ImageField(
+        upload_to='images/%Y/%m/%d',
+        default="images/default.jpg"
+    )
     cart = models.ManyToManyField(Flower, related_name="cart+")
     likes = models.ManyToManyField(Flower, related_name="likes+")
 
@@ -74,4 +104,27 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class  CustomUserForm(ModelForm):
     class Meta:
         model = CustomUser
-        fields = [ 'email', 'first_name', 'last_name', 'company', 'phone', 'password']
+        password_verify = forms.CharField(
+            widget=forms.PasswordInput()
+        )
+        
+        fields = [ 
+            'email', 
+            'first_name', 
+            'last_name', 
+            'company', 
+            'phone', 
+            'password',
+            'password_verify',
+            'img',
+        ]
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
+    def clean(self):
+        password1 = self.cleaned_data.get('password')
+        password2 = self.cleaned_data.get('password_verify')
+        if password1 and password1 != password2:
+            raise forms.ValidationError("passwords don't match")
+
+        return self.cleaned_data
