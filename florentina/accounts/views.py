@@ -54,26 +54,3 @@ def profile(request):
         return redirect('accounts:signin')
     context = {'user':request.user}
     return render(request, 'accounts/profile.html', context)
-
-# cart
-def cart(request):
-    items = request.user.cart.all()
-    context = {"cart_items":items}
-    return render(request, 'accounts/cart.html', context)
-
-# put flower to cart
-def add(request, flower_id):
-    flower = Flower.objects.get(id=flower_id)
-    user_flowers = UserFlowers(user=request.user, flower)
-    user_flowers.save()
-    cart_items = request.user.cart.all()
-    data =serializers.serialize("json",cart_items)
-    return HttpResponse(data)
-
-# remove from the cart
-def remove(request, flower_id):
-    flower = Flower.objects.get(id=flower_id)
-    request.user.cart.remove(flower)
-    cart_items = request.user.cart.all()
-    data =serializers.serialize("json",cart_items)
-    return HttpResponse(data)

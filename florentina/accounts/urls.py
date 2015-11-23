@@ -13,7 +13,4 @@ urlpatterns = [
     url(r'^profile/', views.profile, name='profile'),
     url(r'^login/', views.auth, name='login'),
     url(r'^logout/', views.signout, name='logout'),
-    url(r'^cart/', views.cart, name='cart'),
-    url(r'^add/(?P<flower_id>[0-9]+)/$', views.add, name='add'),
-    url(r'^remove/(?P<flower_id>[0-9]+)/$', views.remove, name='remove'),
 ] + static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)

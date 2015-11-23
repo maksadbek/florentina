@@ -54,10 +54,7 @@ class CustomUserManager(BaseUserManager):
                 True, 
                 True, 
                 **extra_fields)
-
-
-        
-        
+       
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     Custom User model with admin-compliant permission.
@@ -72,10 +69,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         upload_to='images/%Y/%m/%d',
         default="images/default.jpg"
     )
-    cart = models.ManyToManyField(
-            Flower, 
-            through='UserFlowers',
-            related_name="cart+")
     likes = models.ManyToManyField(
             Flower, 
             related_name="likes+")
