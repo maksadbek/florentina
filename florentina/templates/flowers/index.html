@@ -13,6 +13,17 @@
                 <li>created: {{ flower.created}} </li>
                 <li>modified: {{ flower.modified}} </li>
                 <li>image: <a href="{{ flower.img.url}}">link to image</a></li>
+        <form action={% url 'cart:add' %} method="post">
+            {% csrf_token %}
+            <input type="text" 
+                    name="product_id"
+                    value="{{ flower.id }}"
+                    hidden />
+            <input type="text" name="quantity" />
+            <input type="submit">add to cart</input>
+                   
+
+            </form>
         </ul>
         {% endfor %}
     {% endfor %}
