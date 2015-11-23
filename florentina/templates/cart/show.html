@@ -1,0 +1,15 @@
+{% url 'cart:remove' as remove_path %}
+<ul>
+    {% for item in cart %}
+    <li>{{ item.name }}</li>
+    <li>{{ item.quantity }}</li>
+    <form action="{{ remove_path }}" method="post">
+        {% csrf_token %}
+        <input hidden 
+             type="text" 
+             name="product_id" 
+             value="{{ item.id }}" />
+        <input type="submit">remove</input>
+    </form>
+    {% endfor %}
+</ul>
