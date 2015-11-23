@@ -55,6 +55,9 @@ class CustomUserManager(BaseUserManager):
                 True, 
                 **extra_fields)
 
+
+        
+        
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     Custom User model with admin-compliant permission.
@@ -69,8 +72,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         upload_to='images/%Y/%m/%d',
         default="images/default.jpg"
     )
-    cart = models.ManyToManyField(Flower, related_name="cart+")
-    likes = models.ManyToManyField(Flower, related_name="likes+")
+    cart = models.ManyToManyField(
+            Flower, 
+            through='UserFlowers',
+            related_name="cart+")
+    likes = models.ManyToManyField(
+            Flower, 
+            related_name="likes+")
 
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
@@ -126,3 +134,7 @@ class  CustomUserForm(ModelForm):
             raise forms.ValidationError("passwords don't match")
 
         return self.cleaned_data
+
+class UserFlowers(models.Model):
+    flower = models.ForeignKey(Flower)
+    user = models.ForeignKey(CustomUser)
