@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.models import CustomUserForm, UserFlowers
+from accounts.models import CustomUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.core import serializers
@@ -54,3 +54,18 @@ def profile(request):
         return redirect('accounts:signin')
     context = {'user':request.user}
     return render(request, 'accounts/profile.html', context)
+
+def likes(request):
+    if request.method == 'POST':
+        postdata = request.POST.copy()
+        flower = get_object_or_404(Flower,postdata['flower_id'])
+        request.user.likes.add(flower)
+        return HttpResonse("ok")
+    elif request.method == 'GET':
+        liked_items = request.user.likes.all()
+        context = {"likes":liked_items}
+        return render(request, 'accounts/likes.html', context)
+    elif request.method == 'DELETE':
+        flower = get_object_or_404(Flower,request.DELETE['flower_id'])
+        request.user.likes.remove(flower)
+        return HttpResonse("ok")

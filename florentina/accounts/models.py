@@ -69,10 +69,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         upload_to='images/%Y/%m/%d',
         default="images/default.jpg"
     )
-    likes = models.ManyToManyField(
-            Flower, 
-            related_name="likes+")
-
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -125,9 +121,4 @@ class  CustomUserForm(ModelForm):
         password2 = self.cleaned_data.get('password_verify')
         if password1 and password1 != password2:
             raise forms.ValidationError("passwords don't match")
-
         return self.cleaned_data
-
-class UserFlowers(models.Model):
-    flower = models.ForeignKey(Flower)
-    user = models.ForeignKey(CustomUser)
