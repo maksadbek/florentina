@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'flowers',
     'accounts',
     'cart',
+    'favourites',
 )
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
