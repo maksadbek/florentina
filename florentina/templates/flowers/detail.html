@@ -1,3 +1,4 @@
+{% url 'favourites:new' as favourites_new_path %}
 <div>
     <h1>{{ flower.category }}</h1>
     <ul>
@@ -8,5 +9,10 @@
         <li>type: {{ flower.type }} </li>
         <li>created: {{ flower.created}} </li>
         <li>modified: {{ flower.modified}} </li>
+        <form action="{{ favourites_new_path }}" method="POST">
+            {% csrf_token %}
+            <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
+            <input type="submit" value="add to favourites" />
+        </form>
     </ul>
 </div>
