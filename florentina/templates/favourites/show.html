@@ -1,0 +1,8 @@
+<ol>
+{% for favourite in favourites %}
+    <li>{{ favourite.flower.name }}</li>
+    <form action="{% url 'favourites:delete' favourite.id %}" method="DELETE">
+        <input type="submit" value="remove" />
+    </form>
+{% endfor %}
+</ol>
