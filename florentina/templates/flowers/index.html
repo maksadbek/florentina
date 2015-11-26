@@ -1,31 +1,77 @@
-<div>
-    {% regroup flowers|dictsort:"category" by category as flower_list %}
-    <ul>
-    {% for group in flower_list %}
-        <li>{{ group.grouper }}</li>
-        {% for flower in group.list %}
-        <ul>
-                <li>id: {{ flower.id }} </li>
-                <li>description: {{ flower.desc }} </li>
-                <li>info: {{ flower.info }} </li>
-                <li>category: {{ flower.category }} </li>
-                <li>type: {{ flower.type }} </li>
-                <li>created: {{ flower.created}} </li>
-                <li>modified: {{ flower.modified}} </li>
-                <li>image: <a href="{{ flower.img.url}}">link to image</a></li>
-        <form action={% url 'cart:add' %} method="post">
-            {% csrf_token %}
-            <input type="text" 
-                    name="product_id"
-                    value="{{ flower.id }}"
-                    hidden />
-            <input type="text" name="quantity" />
-            <input type="submit">add to cart</input>
-                   
+{% include '_partials/header.html' %}
+<div class="content">
+    <div class="inner clearfix">
+        <section>
+            <h1>Новости</h1>
+            <div class="content_wrapper">
+                <div class="news_item clearfix">
+                    <div class="image"><a href="#"><img src="img/news_image.png" /></a></div>
+                    <div class="title"><a href="#">Кампанула Синяя</a></div>
+                    <div class="descr">
+                        Широко распространенное растение семейства Колокольчиковых (Campanulaceae), 
+                        ее можно встретить в дикой природе во многих районах Южной Европы. 
+                        Наша компания предлагает выгодную оптовую цену на это прекрасное растение, 
+                        с 21-29 сентября закажите у нас и вы так же получите дополнительный бонус...
+                    </div>
+                    <div class="more"><a href="#">Подробнее</a></div>
+                </div>
+            </div>
+        </section>
 
-            </form>
-        </ul>
-        {% endfor %}
-    {% endfor %}
-    </ul>
+        {% regroup flowers|dictsort:"category" by category as flower_list %}
+        {% for group in flower_list %}
+        <section>
+            <h3>{{ group.grouper }}</h3>
+                <div class="content_wrapper">
+                    <div class="prod_list_wrap">
+                        <div class="prod_list clearfix">
+                        {% for flower in group.list %}
+                            <div class="prod">
+                                <div class="prod_inside">
+                                    <div class="favorite"><a href="#"></a></div>
+                                    <div class="image">
+                                        <!-- sdelal hard code s razmerami TODO fix it -->
+                                        <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
+                                    </div>
+                                    <div class="title"><a href="#">{{ flower.name }}</a></div>
+                                    <div class="sizes">
+                                        <ul>
+                                            <li><a href="#">11х25см</a></li>
+                                            <li><a href="#">13х35см</a></li>
+                                            <li><a href="#">23х35см</a></li>
+                                            <li><a href="#">25х70см</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="buy">
+                                        <form action={% url 'cart:add' %} method="post">
+                                            {% csrf_token %}
+                                            <input type="text" name="product_id" value="{{ flower.id }}" hidden />
+                                            <input type="text" name="quantity" value="1" hidden/>
+                                            <a href="#"> 
+                                                <input type="submit" value="В корзину" />
+                                            </a>
+                                        </form>
+                                    </div>
+                                    <div class="more"><a href="{{ flower.img.url}}">Подробнее</a></div>
+                                </div>
+                                <ul>
+                                    <li>id: {{ flower.id }} </li>
+                                    <li>description: {{ flower.desc }} </li>
+                                    <li>info: {{ flower.info }} </li>
+                                    <li>category: {{ flower.category }} </li>
+                                    <li>type: {{ flower.type }} </li>
+                                    <li>created: {{ flower.created}} </li>
+                                    <li>modified: {{ flower.modified}} </li>
+                                    <li>image: <a href="{{ flower.img.url}}">link to image</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="more"><a href="#">Подробнее</a></div>
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+            {% endfor %}
+    </div>  
 </div>
+{% include '_partials/footer.html' %}

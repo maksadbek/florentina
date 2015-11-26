@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>Флорентина</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="robots" content="index, follow">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+	</head>
+	<body>
+		<header>
+			<div class="line">
+				<div class="inner clearfix">
+					<div class="rightside">
+						<ul>
+							<li><a href="#"><span class="ico reg"></span>Регистрация</a></li>
+							<li><a href="#"><span class="ico auth"></span>Вход</a></li>
+						</ul>
+					</div>
+					<nav>
+						<ul>
+							<li><a href="#">О компании</a></li>
+							<li><a href="#">Как сделать заказ</a></li>
+							<li><a href="#">Оплата</a></li>
+							<li><a href="#">Доставка</a></li>
+							<li><a href="#">Филиалы</a></li>
+							<li><a href="#">Контакты</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="middle">
+				<div class="inner clearfix">
+					<div class="logo"><a href="/"><strong>Флорентина</strong> оптовый отдел</a></div>
+					<div class="contacts">
+						<div class="phones">
+							<span>8 (8552)</span>
+							33-01-30<br/>
+							33-07-12
+						</div>
+						<div class="work_time">
+							<span>ежедневно</span>
+							с 9: 00<br/>
+							до 17: 00
+						</div>
+					</div>
+					<div class="search">
+						<form action="#">
+							<input type="text" placeholder="поиск" />
+							<input type="submit" value="" />
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="bottom">
+				<nav>
+					<ul>
+						<li><a href="#">Срезанные цветы</a></li>
+						<li><a href="#">Горшечные растения</a></li>
+						<li><a href="#">Упаковка</a></li>
+						<li><a href="#">Керамика и грунты</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
