@@ -5,13 +5,13 @@ from django.utils import timezone
 class Category(models.Model):
     name = models.CharField(max_length=200)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 class Type(models.Model):
     name = models.CharField(max_length=200)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 class Flower(models.Model):
@@ -26,7 +26,7 @@ class Flower(models.Model):
     popularity = models.IntegerField()
     
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def save(self, *args, **kwargs):
