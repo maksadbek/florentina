@@ -1,0 +1,7 @@
+<nav>
+    <ul>
+        {% for category in categories %}
+        <li><a href="{% url 'flowers:index'%}?category={{category.name}}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>

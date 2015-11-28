@@ -32,3 +32,4 @@ def detail(request, id):
     flowers = Flower.objects.filter(category__name=category)
     context = {'flower':flower}
     return render(request, 'flowers/detail.html', context)
+

@@ -1,15 +1,40 @@
+{% include '_partials/header.html' %}
 {% url 'cart:remove' as remove_path %}
-<ul>
-    {% for item in cart %}
-    <li>{{ item.name }}</li>
-    <li>{{ item.quantity }}</li>
-    <form action="{{ remove_path }}" method="post">
-        {% csrf_token %}
-        <input hidden 
-             type="text" 
-             name="product_id" 
-             value="{{ item.id }}" />
-        <input type="submit">remove</input>
-    </form>
-    {% endfor %}
-</ul>
+<div class="content">
+    <div class="inner clearfix">
+        <h1>Корзина</h1>
+            <div class="content_wrapper">
+                <div class="data_list">
+                    {% for item in cart %}
+						<div class="list_row">
+                            <div class="image">
+                                <a href="#"><img width="50" height="50" src="{{ item.product.img.url }}"/></a>
+                            </div>
+							<div class="descr">
+                                <div class="title">{{ item.name }}</div>
+								<div class="size">11x25 см</div>
+                                <div class="info"><!-- {{ item.product.info }} --></div>
+							</div>
+							<div class="favorite">
+								<a href="#">В избранном</a>
+							</div>
+							<div class="count">
+                                <input type="number" min="1" value="{{ item.count }}" />
+							</div>
+							<div class="delete">
+                                <form action="{{ remove_path }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden 
+                                         type="text" 
+                                         name="product_id" 
+                                         value="{{ item.id }}" />
+                                    <button type="submit">remove</button>
+                                </form>
+                            </div>
+						</div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% include '_partials/footer.html' %}
