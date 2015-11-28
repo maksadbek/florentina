@@ -52,21 +52,15 @@
                                             </a>
                                         </form>
                                     </div>
-                                    <div class="more"><a href="{{ flower.img.url}}">Подробнее</a></div>
+                                    <div class="more">
+										<a href="{% url 'flowers:detail' flower.id %}">Подробнее</a>
+									</div>
                                 </div>
-                                <ul>
-                                    <li>id: {{ flower.id }} </li>
-                                    <li>description: {{ flower.desc }} </li>
-                                    <li>info: {{ flower.info }} </li>
-                                    <li>category: {{ flower.category }} </li>
-                                    <li>type: {{ flower.type }} </li>
-                                    <li>created: {{ flower.created}} </li>
-                                    <li>modified: {{ flower.modified}} </li>
-                                    <li>image: <a href="{{ flower.img.url}}">link to image</a></li>
-                                </ul>
                             </div>
                         </div>
-                        <div class="more"><a href="#">Подробнее</a></div>
+                        <div class="more">
+							<a href="{% url 'flowers:index' %}?category={{group.grouper}}">Подробнее</a>
+						</div>
                     </div>
                 </div>
             </section>
