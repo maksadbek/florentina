@@ -1,31 +1,50 @@
+{% include '_partials/header.html' %}
 {% url 'cart:add' as cart_add_path %}
-<div>
-    <h2>{{ category }}</h2>
-    <h3>sorted by: {{ sorting }}</h3>
-    {% for flower in flowers %}
-    <ul>
-        <li>id: {{ flower.id }} </li>
-        <li>description: {{ flower.desc }} </li>
-        <li>info: {{ flower.info }} </li>
-        <li>category: {{ flower.category }} </li>
-        <li>type: {{ flower.type }} </li>
-        <li>created: {{ flower.created}} </li>
-        <li>modified: {{ flower.modified}} </li>
-        <li>image: 
-            <a href="{{ flower.img.url}}">link to image</a>
-        </li>
-        <li>popularity: {{ flower.popularity }} </li>
-    {% url 'flower:detail' flower.id as flower_detail_path %}
-        <a href="{{ flower_detail_path }}">{{ flower.name }}</a>
-        <form action="{{ cart_add_path }}" method="post">
-            {% csrf_token %}
-            <input type="text" 
-                   name="product_id"
-                   value="{{ flower.id }}" 
-                   hidden />
-            <input type="text" name="quantity" />
-            <input type="submit" value="add to cart" />
-        </form>
-    </ul>
-    {% endfor %}
+<div class="content">
+    <div class="inner clearfix">
+        <h1>{{ category }}</h1>
+        <div class="content_wrapper">
+            <div class="content_wrapper">
+                <div class="prod_list_wrap">
+                    <div class="filter">
+                        <form> </form>
+                    </div>
+                    <div class="prod_list clearfix">
+						{% for flower in flowers %}
+							<div class="prod">
+								<div class="prod_inside">
+									<div class="favorite"><a href="#"></a></div>
+									<div class="image">
+										<a href="#"><img width=200 height=200 src="{{ flower.img.url }}" /></a>
+									</div>
+									{% url 'flowers:detail' flower.id as flower_detail_path %}
+									<div class="title"><a href="{{ flower_detail_path }}">{{ flower.name }}</a></div>
+									<div class="sizes">
+										<ul>
+											<li><a href="#">11х25см</a></li>
+											<li><a href="#">13х35см</a></li>
+											<li><a href="#">23х35см</a></li>
+											<li><a href="#">25х70см</a></li>
+										</ul>
+									</div>
+									<div class="buy">
+										<form action="{{ cart_add_path }}" method="post">
+											{% csrf_token %}
+											<input type="text" name="product_id" value="{{ flower.id }}" hidden />
+											<input type="text" name="quantity" value="1" hidden/>
+											<a>
+												<input type="submit" value="В корзину" />
+											</a>
+										</form>
+									</div>
+									<div class="more"><a href="{{ flower_detail_path }}">Подробнее</a></div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
 </div>
+{% include '_partials/footer.html' %}
