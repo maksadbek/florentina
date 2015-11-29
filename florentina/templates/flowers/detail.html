@@ -1,18 +1,84 @@
+{% include '_partials/header.html' %}
 {% url 'favourites:new' as favourites_new_path %}
-<div>
-    <h1>{{ flower.category }}</h1>
-    <ul>
-        <li>id: {{ flower.id }} </li>
-        <li>name: {{ flower.name }} </li>
-        <li>description: {{ flower.desc }} </li>
-        <li>info: {{ flower.info }} </li>
-        <li>type: {{ flower.type }} </li>
-        <li>created: {{ flower.created}} </li>
-        <li>modified: {{ flower.modified}} </li>
-        <form action="{{ favourites_new_path }}" method="POST">
-            {% csrf_token %}
-            <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
-            <input type="submit" value="add to favourites" />
-        </form>
-    </ul>
+<div class="content">
+    <div class="inner clearfix">
+        <h1>{{ flower.category }}</h1>
+        <div class="product clearfix">
+            <div class="image">
+                <a href="#"><img width=326 height=396 src="{{ flower.img.url }}" /></a>
+            </div>
+            <div class="favorite">
+                <form action="{{ favourites_new_path }}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
+                    <!-- todo: fix it! -->
+                    <a><input type="submit" value="В избранное" /></a>
+                </form>
+            </div>
+            <div class="title">{{ flower.name }}</div>
+            <div class="description"><p>{{ flower.desc }}</p></div>
+            <div class="buy_row">
+                <form>
+                    <select>
+                        <option val="1">11*25 cm</option>
+                    </select>
+                    <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
+                    <input type="number" min="1" value="1" />
+                    <input type="submit" class="buy" value="В корзину" />
+                </form>
+            </div>
+            <div class="info_block"><p>{{ flower.info }}</p></div>
+        </div>
+        <div class="prod_list_wrap siblings">
+            <div class="title">Другие товары из этого раздела:</div>
+            <div class="prod_list clearfix">
+                <div class="prod">
+                    <div class="prod_inside">
+                        <div class="favorite"><a href="#"></a></div>
+                        <div class="image">
+                            <a href="#"><img src="img/prod_image.png" /></a>
+                        </div>
+                        <div class="title"><a href="#">Уличная роза микс</a></div>
+                        <div class="buy"><a href="#">В корзину</a></div>
+                        <div class="more"><a href="#">Подробнее</a></div>
+                    </div>
+                </div>
+                <div class="prod">
+                    <div class="prod_inside">
+                        <div class="favorite"><a href="#"></a></div>
+                        <div class="image">
+                            <a href="#"><img src="img/prod_image.png" /></a>
+                        </div>
+                        <div class="title"><a href="#">Уличная роза микс</a></div>
+                        <div class="buy"><a href="#">В корзину</a></div>
+                        <div class="more"><a href="#">Подробнее</a></div>
+                    </div>
+                </div>
+                <div class="prod">
+                    <div class="prod_inside">
+                        <div class="favorite"><a href="#"></a></div>
+                        <div class="image">
+                            <a href="#"><img src="img/prod_image.png" /></a>
+                        </div>
+                        <div class="title"><a href="#">Драцена Фрагранс Лимон Лайм разветвленная</a></div>
+                        <div class="buy"><a href="#">В корзину</a></div>
+                        <div class="more"><a href="#">Подробнее</a></div>
+                    </div>
+                </div>
+                <div class="prod">
+                    <div class="prod_inside">
+                        <div class="favorite"><a href="#"></a></div>
+                        <div class="image">
+                            <a href="#"><img src="img/prod_image.png" /></a>
+                        </div>
+                        <div class="title"><a href="#">Диффенбахия Грин Меджик</a></div>
+                        <div class="buy"><a href="#">В корзину</a></div>
+                        <div class="more"><a href="#">Подробнее</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="back"><a href="#">Назад</a></div>
+    </div>
 </div>
+{% include '_partials/footer.html' %}
