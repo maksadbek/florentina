@@ -1,4 +1,4 @@
-{% include '_partials/header.html' %}
+{% include "_partials/header.html" %}
 <div class="content">
     <div class="inner clearfix">
         <section>
@@ -21,7 +21,7 @@
         {% regroup flowers|dictsort:"category" by category as flower_list %}
         {% for group in flower_list %}
         <section>
-            <h3>{{ group.grouper }}</h3>
+            <h3>{{ group.grouper.name }}</h3>
                 <div class="content_wrapper">
                     <div class="prod_list_wrap">
                         <div class="prod_list clearfix">
@@ -34,24 +34,22 @@
                                         <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
                                     </div>
                                     <div class="title"><a href="#">{{ flower.name }}</a></div>
-                                    <div class="sizes">
-                                        <ul>
-                                            <li><a href="#">11х25см</a></li>
-                                            <li><a href="#">13х35см</a></li>
-                                            <li><a href="#">23х35см</a></li>
-                                            <li><a href="#">25х70см</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="buy">
-                                        <form action={% url 'cart:add' %} method="post">
+                                    <form action={% url 'cart:add' %} method="post">
+                                        <div class="sizes">
+                                            <ul>
+                                                <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>
+                                                <li><input type="radio" name="size" id="size_2" /><label for="size_2">13х35см</label></li>
+                                                <li><input type="radio" name="size" id="size_3" /><label for="size_3">23х35см</label></li>
+                                                <li><input type="radio" name="size" id="size_4" /><label for="size_4">25х70см</label></li>
+                                            </ul>
+                                        </div>
+                                        <div class="buy">
                                             {% csrf_token %}
                                             <input type="text" name="product_id" value="{{ flower.id }}" hidden />
                                             <input type="text" name="quantity" value="1" hidden/>
-                                            <a href="#"> 
-                                                <input type="submit" value="В корзину" />
-                                            </a>
-                                        </form>
-                                    </div>
+                                            <button type="submit">В корзину</button>
+                                        </div>
+                                    </form>
                                     <div class="more">
 										<a href="{% url 'flowers:detail' flower.id %}">Подробнее</a>
 									</div>

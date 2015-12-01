@@ -2,7 +2,7 @@
 {% url 'favourites:new' as favourites_new_path %}
 <div class="content">
     <div class="inner clearfix">
-        <h1>{{ flower.category }}</h1>
+        <h1>{{ flower.category.name }}</h1>
         <div class="product clearfix">
             <div class="image">
                 <a href="#"><img width=326 height=396 src="{{ flower.img.url }}" /></a>

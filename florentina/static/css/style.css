@@ -274,7 +274,10 @@ header .work_time span{
 .news_item .title a{color: inherit; text-decoration: none;}
 
 .more{float:right;}
-.more a, .buy a{
+.more a, .buy a, .buy button{
+	border:none;
+	padding: 0;
+	margin: 0;
 	font-weight:bold;
 	display:inline-block;
 	line-height:37px;
@@ -305,12 +308,15 @@ header .work_time span{
 .prod .buy, .prod .more, .prod .sizes{display:none;}
 .prod .sizes{padding: 5px 20px 10px; text-align: center;}
 .prod .sizes a{color:#c2c2c2; font-size:14px;}
-.prod .sizes a:hover{color:#dcbb9d;}
+.prod .sizes input{display: none;}
+.prod .sizes label{cursor: pointer;}
+.prod .sizes input:checked+label{color:#dcbb9d;}
+.prod .sizes label:hover{color:#dcbb9d;}
 .prod .buy{float:left;}
 .prod .more{float:right;}
 .prod .more{margin:0 -9px 0 0;}
 .prod .buy{margin:0 0 0 -9px;}
-.prod .more a, .prod .buy a{width:107px;}
+.prod .more a, .prod .buy a, .prod .buy button{width:107px;}
 .prod_all{margin:23px 0 0 0;}
 
 .prod:hover .buy, .prod:hover .more, .prod:hover .sizes{display:block;}
