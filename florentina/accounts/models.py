@@ -122,3 +122,15 @@ class  CustomUserForm(ModelForm):
         if password1 and password1 != password2:
             raise forms.ValidationError("passwords don't match")
         return self.cleaned_data
+
+class  CustomUserEditForm(ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = [ 
+            'email', 
+            'first_name', 
+            'last_name', 
+            'company', 
+            'phone', 
+            'img',
+        ]
