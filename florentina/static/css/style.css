@@ -402,6 +402,12 @@ footer .phones{
 }
 .copy{text-align:center; margin: 50px 0 0; text-transform: uppercase; font-size: 13px;}
 
+.modal {
+  display: none;
+  width: 303px;
+  background: #fff;
+}
+
 /* PRODUCT PAGE*/
 .product{
 	padding:0 9px;
