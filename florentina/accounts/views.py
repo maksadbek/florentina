@@ -5,7 +5,7 @@ from django.core import serializers
 from django.contrib.auth.decorators import login_required
 
 from flowers.models import Flower
-from accounts.models import CustomUserForm
+from accounts.models import CustomUserForm, CustomUserEditForm
 
 def signup(request):
     """ create user """
@@ -54,16 +54,16 @@ def signout(request):
 
 @login_required(login_url='/accounts/signin')
 def profile(request):
-    userForm = CustomUserForm(request.POST, request.FILES, instance=request.user)
-    if not request.user.is_authenticated():
-        return redirect('accounts:signin')
-    context = {'user':userForm}
-    return render(request, 'accounts/profile.html', context)
-
-def edit(request):
-    post_data = request.POST.copy()
-    request.user.first_name = post_data.get("first_name")
-    request.user.last_name = post_data.get("last_name")
-    request.user.email = post_data.get("email")
-    request.user.company = post_data.get("company")
-    
+    if request.method == "POST":
+        form = CustomUserEditForm(request.POST, request.FILES, instance=request.user)
+        form.actual_user = request.user 
+        context = {'form':form}
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:profile')
+        return render(request, 'accounts/profile.html', context)
+    else:
+        flowers = Flower.objects.all().order_by('?')[:4]
+        userForm = CustomUserEditForm(instance=request.user)
+        context = {'form':userForm, 'flowers': flowers}
+        return render(request, 'accounts/profile.html', context)

@@ -3,51 +3,42 @@
     <div class="inner clearfix">
         <h1>Настройки</h1>
 				<div class="settings clearfix">
-					<div class="image"><a href="{{ user.img.url }}"><img src="{{ user.img.url }}" /></a></div>
+					<!-- <div class="image">
+                            <a href="{{ user.img.url }}"><img src="{{ user.img.url }}" /></a>
+                        </div>-->
 					<div class="personal_information">
-                        {{ user.as_p }}
-                        <!--
-						<form>
+                        <form action="/accounts/profile/" method="POST" enctype='multipart/form-data'>
+                            {% csrf_token %}
+                            <div class="image">
+                                <a href="{{ user.img.url }}"><img width="240"
+                                    height="240" src="{{ user.img.url }}" /></a>
+                                {{ form.img }}
+                            </div>
 							<div>
 								<label>Фамилия</label>
-								<input type="text" value="{{ user.last_name}}" />
+                                {{ form.last_name }}
 							</div>
 							<div>
 								<label>Имя</label>
-								<input type="text" value="{{ user.first_name}}"/>
+                                {{ form.first_name }}
 							</div>
 							<div>
 								<label>E-mail</label>
-								<input type="text" value="{{ user.email }}"/>
+                                {{ form.email }}
 							</div>
 							<div>
 								<label>Телефон</label>
-								<input type="text" value="{{ user.phone }}"/>
+                                {{ form.phone }}
 							</div>
 							<div>
 								<label>Организация</label>
-								<input type="text" value="{{ user.company }}"/>
+                                {{ form.company }}
 							</div>
 							<div>
-								<button>Сохранить</button>
+								<button type="submit">Сохранить</button>
 							</div>
 						</form>
-                        -->
 					</div>
 				</div>
-                <!--
-                    <a href="{% url 'accounts:logout' %}">logout</a>
-                    <li><strong>first name </strong>{{ user.first_name}}</li>
-                    <li><strong>last name </strong>{{ user.last_name}}</li>
-                    <li><strong>email </strong>{{ user.email }}</li>
-                    <li><strong>phone </strong>{{ user.phone }}</li>
-                    <li><strong>company </strong>{{ user.company }}</li>
-                    <ul>
-                        {% for flower in user.cart.all %}
-                            <li>flower.name</li>
-                        {% endfor %}
-                    </ul>
-                    <img src="{{ user.img.url }}" /> 
-                -->
     </div>
 {% include '_partials/footer.html' %}
