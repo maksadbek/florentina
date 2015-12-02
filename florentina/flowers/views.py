@@ -25,11 +25,7 @@ def index(request):
 
 def detail(request, id):
     flower = get_object_or_404(Flower, id=id)
+    if not request.user.is_anonymous():
+        request.user.lastSeenProducts.add(flower)
     context = {'flower':flower}
     return render(request, 'flowers/detail.html', context)
-
-    category_name = request.GET.get('category','')
-    flowers = Flower.objects.filter(category__name=category)
-    context = {'flower':flower}
-    return render(request, 'flowers/detail.html', context)
-

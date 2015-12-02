@@ -69,6 +69,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         upload_to='images/%Y/%m/%d',
         default="images/default.jpg"
     )
+    lastSeenProducts = models.ManyToManyField(Flower)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)

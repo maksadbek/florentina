@@ -2,43 +2,72 @@
 <div class="content">
     <div class="inner clearfix">
         <h1>Настройки</h1>
-				<div class="settings clearfix">
-					<!-- <div class="image">
-                            <a href="{{ user.img.url }}"><img src="{{ user.img.url }}" /></a>
-                        </div>-->
-					<div class="personal_information">
-                        <form action="/accounts/profile/" method="POST" enctype='multipart/form-data'>
-                            {% csrf_token %}
-                            <div class="image">
-                                <a href="{{ user.img.url }}"><img width="240"
-                                    height="240" src="{{ user.img.url }}" /></a>
-                                {{ form.img }}
+        <div class="settings clearfix">
+            <!-- <div class="image">
+                    <a href="{{ user.img.url }}"><img src="{{ user.img.url }}" /></a>
+                </div>-->
+            <div class="personal_information">
+                <form action="/accounts/profile/" method="POST" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="image">
+                        <a href="{{ user.img.url }}"><img width="240"
+                            height="240" src="{{ user.img.url }}" /></a>
+                        {{ form.img }}
+                    </div>
+                    <div>
+                        <label>Фамилия</label>
+                        {{ form.last_name }}
+                    </div>
+                    <div>
+                        <label>Имя</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label>E-mail</label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        <label>Телефон</label>
+                        {{ form.phone }}
+                    </div>
+                    <div>
+                        <label>Организация</label>
+                        {{ form.company }}
+                    </div>
+                    <div>
+                        <button type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="prod_list_wrap siblings">
+            <div class="title">Недавно просмотренные товары:</div>
+            <div class="prod_list clearfix">
+                {% for product in products %}
+                <div class="prod">
+                    <div class="prod_inside">
+                        <div class="favorite"><a href="#"></a></div>
+                        <div class="image">
+                            <!-- sdelal hard code s razmerami TODO fix it -->
+                            <a href="#"><img width="200" height="200" src="{{ product.img.url}}" /></a>
+                        </div>
+                        <div class="title"><a href="#">{{ product.name }}</a></div>
+                        <form action={% url 'cart:add' %} method="post">
+                            <div class="buy">
+                                {% csrf_token %}
+                                <input type="text" name="product_id" value="{{ product.id }}" hidden />
+                                <input type="text" name="quantity" value="1" hidden/>
+                                <button type="submit">В корзину</button>
                             </div>
-							<div>
-								<label>Фамилия</label>
-                                {{ form.last_name }}
-							</div>
-							<div>
-								<label>Имя</label>
-                                {{ form.first_name }}
-							</div>
-							<div>
-								<label>E-mail</label>
-                                {{ form.email }}
-							</div>
-							<div>
-								<label>Телефон</label>
-                                {{ form.phone }}
-							</div>
-							<div>
-								<label>Организация</label>
-                                {{ form.company }}
-							</div>
-							<div>
-								<button type="submit">Сохранить</button>
-							</div>
-						</form>
-					</div>
-				</div>
+                        </form>
+                        <div class="more">
+                            <a href="{% url 'flowers:detail' product.id %}">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
+</div>
 {% include '_partials/footer.html' %}

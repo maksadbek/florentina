@@ -63,7 +63,7 @@ def profile(request):
             return redirect('accounts:profile')
         return render(request, 'accounts/profile.html', context)
     else:
-        flowers = Flower.objects.all().order_by('?')[:4]
+        products = request.user.lastSeenProducts.all()[:4]
         userForm = CustomUserEditForm(instance=request.user)
-        context = {'form':userForm, 'flowers': flowers}
+        context = {'form':userForm, 'products': products}
         return render(request, 'accounts/profile.html', context)
