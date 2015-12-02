@@ -18,8 +18,10 @@ from django.contrib import admin
 
 from django.conf.urls.static import static
 from django.conf import settings
+import flowers
 
 urlpatterns = [
+    url(r'^$', flowers.views.index),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^flowers/', include('flowers.urls', namespace='flowers') ),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
