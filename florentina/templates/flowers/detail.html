@@ -1,5 +1,7 @@
 {% include '_partials/header.html' %}
 {% url 'favourites:new' as favourites_new_path %}
+{% url 'cart:add' as cart_add_path %}
+<div class="content">
 <div class="content">
     <div class="inner clearfix">
         <h1>{{ flower.category.name }}</h1>
@@ -18,12 +20,13 @@
             <div class="title">{{ flower.name }}</div>
             <div class="description"><p>{{ flower.desc }}</p></div>
             <div class="buy_row">
-                <form>
+                <form action={% url 'cart:add' %} method="post">
+                    {% csrf_token %}
                     <select>
                         <option val="1">11*25 cm</option>
                     </select>
-                    <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
-                    <input type="number" min="1" value="1" />
+                    <input type="text" hidden name="product_id" value="{{ flower.id }}" />
+                    <input type="number" min="1" value="1" name="quantity"/>
                     <input type="submit" class="buy" value="В корзину" />
                 </form>
             </div>
@@ -32,50 +35,29 @@
         <div class="prod_list_wrap siblings">
             <div class="title">Другие товары из этого раздела:</div>
             <div class="prod_list clearfix">
+                {% for f in flowers %}
                 <div class="prod">
                     <div class="prod_inside">
                         <div class="favorite"><a href="#"></a></div>
                         <div class="image">
-                            <a href="#"><img src="img/prod_image.png" /></a>
+                            <!-- sdelal hard code s razmerami TODO fix it -->
+                            <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
                         </div>
-                        <div class="title"><a href="#">Уличная роза микс</a></div>
-                        <div class="buy"><a href="#">В корзину</a></div>
-                        <div class="more"><a href="#">Подробнее</a></div>
+                        <div class="title"><a href="#">{{ flower.name }}</a></div>
+                        <form action={% url 'cart:add' %} method="post">
+                            <div class="buy">
+                                {% csrf_token %}
+                                <input type="text" name="product_id" value="{{ flower.id }}" hidden />
+                                <input type="text" name="quantity" value="1" hidden/>
+                                <button type="submit">В корзину</button>
+                            </div>
+                        </form>
+                        <div class="more">
+                            <a href="{% url 'flowers:detail' flower.id %}">Подробнее</a>
+                        </div>
                     </div>
                 </div>
-                <div class="prod">
-                    <div class="prod_inside">
-                        <div class="favorite"><a href="#"></a></div>
-                        <div class="image">
-                            <a href="#"><img src="img/prod_image.png" /></a>
-                        </div>
-                        <div class="title"><a href="#">Уличная роза микс</a></div>
-                        <div class="buy"><a href="#">В корзину</a></div>
-                        <div class="more"><a href="#">Подробнее</a></div>
-                    </div>
-                </div>
-                <div class="prod">
-                    <div class="prod_inside">
-                        <div class="favorite"><a href="#"></a></div>
-                        <div class="image">
-                            <a href="#"><img src="img/prod_image.png" /></a>
-                        </div>
-                        <div class="title"><a href="#">Драцена Фрагранс Лимон Лайм разветвленная</a></div>
-                        <div class="buy"><a href="#">В корзину</a></div>
-                        <div class="more"><a href="#">Подробнее</a></div>
-                    </div>
-                </div>
-                <div class="prod">
-                    <div class="prod_inside">
-                        <div class="favorite"><a href="#"></a></div>
-                        <div class="image">
-                            <a href="#"><img src="img/prod_image.png" /></a>
-                        </div>
-                        <div class="title"><a href="#">Диффенбахия Грин Меджик</a></div>
-                        <div class="buy"><a href="#">В корзину</a></div>
-                        <div class="more"><a href="#">Подробнее</a></div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
         <div class="back"><a href="#">Назад</a></div>
