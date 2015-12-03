@@ -18,13 +18,15 @@ from django.contrib import admin
 
 from django.conf.urls.static import static
 from django.conf import settings
-import flowers
+
+import flowers.views as flowers_views
 
 urlpatterns = [
-    url(r'^$', flowers.views.index),
+    url(r'^$', flowers_views.index),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^flowers/', include('flowers.urls', namespace='flowers') ),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^favourites/', include('favourites.urls', namespace='favourites')),
+    url(r'^redactor/', include('redactor.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
