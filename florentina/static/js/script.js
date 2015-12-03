@@ -11,3 +11,5 @@ $(signUpBtn+","+signInBtn).on('click', function ( e ) {
     });
     e.preventDefault();
 });
+
+$(".buy_row select").selectBox();

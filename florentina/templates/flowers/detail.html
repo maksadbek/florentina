@@ -2,7 +2,6 @@
 {% url 'favourites:new' as favourites_new_path %}
 {% url 'cart:add' as cart_add_path %}
 <div class="content">
-<div class="content">
     <div class="inner clearfix">
         <h1>{{ flower.category.name }}</h1>
         <div class="product clearfix">
@@ -14,7 +13,7 @@
                     {% csrf_token %}
                     <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
                     <!-- todo: fix it! -->
-                    <a><input type="submit" value="В избранное" /></a>
+                    <button>В избранное</button>
                 </form>
             </div>
             <div class="title">{{ flower.name }}</div>
@@ -27,7 +26,9 @@
                     </select>
                     <input type="text" hidden name="product_id" value="{{ flower.id }}" />
                     <input type="number" min="1" value="1" name="quantity"/>
-                    <input type="submit" class="buy" value="В корзину" />
+                    <div class="buy">
+                        <button type="submit">В корзину</button>
+                    </div>
                 </form>
             </div>
             <div class="info_block"><p>{{ flower.info }}</p></div>

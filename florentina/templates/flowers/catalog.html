@@ -4,44 +4,61 @@
     <div class="inner clearfix">
         <h1>{{ category }}</h1>
         <div class="content_wrapper">
-            <div class="content_wrapper">
-                <div class="prod_list_wrap">
-                    <div class="filter">
-                        <form> </form>
-                    </div>
-                    <div class="prod_list clearfix">
-						{% for flower in flowers %}
-							<div class="prod">
-                                <div class="prod_inside">
-                                    <div class="favorite"><a href="#"></a></div>
-                                    <div class="image">
-                                        <!-- sdelal hard code s razmerami TODO fix it -->
-                                        <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
-                                    </div>
-                                    <div class="title"><a href="#">{{ flower.name }}</a></div>
-                                    <form action={% url 'cart:add' %} method="post">
-                                        <div class="sizes">
-                                            <ul>
-                                                <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>
-                                                <li><input type="radio" name="size" id="size_2" /><label for="size_2">13х35см</label></li>
-                                                <li><input type="radio" name="size" id="size_3" /><label for="size_3">23х35см</label></li>
-                                                <li><input type="radio" name="size" id="size_4" /><label for="size_4">25х70см</label></li>
-                                            </ul>
-                                        </div>
-                                        <div class="buy">
-                                            {% csrf_token %}
-                                            <input type="text" name="product_id" value="{{ flower.id }}" hidden />
-                                            <input type="text" name="quantity" value="1" hidden/>
-                                            <button type="submit">В корзину</button>
-                                        </div>
+            <div class="prod_list_wrap">
+                <div class="filter">
+                    <form>
+                        <div class="sort">
+                            <ul>
+                                <li><span>Сортировать по:</span></li>
+                                <li><a href="#">популярности</a></li>
+                                <li><a href="#">новинкам</a></li>
+                            </ul>
+                        </div>
+                        <div class="sub_cat">
+                            <ul>
+                                <li><a href="#">Комнатные</a></li>
+                                <li><a href="#">Уличные</a></li>
+                                <li><a href="#">Луковичные</a></li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class="prod_list clearfix">
+					{% for flower in flowers %}
+						<div class="prod">
+                            <div class="prod_inside">
+                                <div class="favorite">
+                                    <form>
+                                        <button></button>
                                     </form>
-                                    <div class="more">
-										<a href="{% url 'flowers:detail' flower.id %}">Подробнее</a>
-									</div>
                                 </div>
+                                <div class="image">
+                                    <!-- sdelal hard code s razmerami TODO fix it -->
+                                    <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
+                                </div>
+                                <div class="title"><a href="#">{{ flower.name }}</a></div>
+                                <form action={% url 'cart:add' %} method="post">
+                                    <div class="sizes">
+                                        <ul>
+                                            <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>
+                                            <li><input type="radio" name="size" id="size_2" /><label for="size_2">13х35см</label></li>
+                                            <li><input type="radio" name="size" id="size_3" /><label for="size_3">23х35см</label></li>
+                                            <li><input type="radio" name="size" id="size_4" /><label for="size_4">25х70см</label></li>
+                                        </ul>
+                                    </div>
+                                    <div class="buy">
+                                        {% csrf_token %}
+                                        <input type="text" name="product_id" value="{{ flower.id }}" hidden />
+                                        <input type="text" name="quantity" value="1" hidden/>
+                                        <button type="submit">В корзину</button>
+                                    </div>
+                                </form>
+                                <div class="more">
+									<a href="{% url 'flowers:detail' flower.id %}">Подробнее</a>
+								</div>
                             </div>
-						{% endfor %}
-					</div>
+                        </div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>

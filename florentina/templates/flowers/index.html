@@ -28,7 +28,11 @@
                         {% for flower in group.list %}
                             <div class="prod">
                                 <div class="prod_inside">
-                                    <div class="favorite"><a href="#"></a></div>
+                                    <div class="favorite">
+                                        <form>
+                                            <button></button>
+                                        </form>
+                                    </div>
                                     <div class="image">
                                         <!-- sdelal hard code s razmerami TODO fix it -->
                                         <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
@@ -57,7 +61,7 @@
                             </div>
                         </div>
                         <div class="more">
-							<a href="{% url 'flowers:index' %}?category={{group.grouper}}">Подробнее</a>
+							<a href="{% url 'flowers:index' %}?category={{group.grouper.name}}">Подробнее</a>
 						</div>
                     </div>
                 </div>
