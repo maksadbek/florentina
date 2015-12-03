@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'redactor',
     'flowers',
     'accounts',
     'cart',
@@ -48,6 +49,8 @@ INSTALLED_APPS = (
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+REDACTOR_OPTIONS = {'lang': 'ru'}
+REDACTOR_UPLOAD = 'static/media/'
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
