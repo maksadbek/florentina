@@ -1,11 +1,12 @@
 from django.db import models
-from flowers.models import Flower
+from flowers.models import Flower, Size
 
 class CartItem(models.Model):
     cart_id = models.CharField(max_length=50)
     added_at = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(default=1)
     product = models.ForeignKey(Flower, unique=False)
+    size = models.ForeignKey(Size)
 
     class Meta:
         db_table = 'cart_items'

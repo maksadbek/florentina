@@ -14,6 +14,12 @@ class Type(models.Model):
     def __unicode__(self):
         return self.name
 
+class Size(models.Model):
+    size = models.CharField(max_length=40)
+
+    def __unicode__(self):
+        return self.size
+
 class Flower(models.Model):
     name = models.CharField(max_length=200)
     desc = models.TextField()
@@ -21,6 +27,7 @@ class Flower(models.Model):
     img = models.ImageField(upload_to='images/%Y/%m/%d')
     category = models.ForeignKey(Category, null=True)
     type = models.ForeignKey(Type, null=True)
+    size = models.ManyToManyField(Size)
     created = models.DateTimeField(editable=False, default=timezone.now())
     modified = models.DateTimeField(default=timezone.now())
     popularity = models.IntegerField()

@@ -41,10 +41,15 @@
                                     <form action={% url 'cart:add' %} method="post">
                                         <div class="sizes">
                                             <ul>
-                                                <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>
-                                                <li><input type="radio" name="size" id="size_2" /><label for="size_2">13х35см</label></li>
-                                                <li><input type="radio" name="size" id="size_3" /><label for="size_3">23х35см</label></li>
-                                                <li><input type="radio" name="size" id="size_4" /><label for="size_4">25х70см</label></li>
+                                                {% for size in flower.size.all %}
+                                                <li>
+                                                    <input type="radio"
+                                                           name="size_id"
+                                                           value="{{ size.id }}"
+                                                           id="size_{{forloop.counter}}" />
+                                                    <label for="size_{{forloop.counter}}">{{ size.size }}</label>
+                                                </li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
                                         <div class="buy">

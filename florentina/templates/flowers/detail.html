@@ -21,8 +21,10 @@
             <div class="buy_row">
                 <form action={% url 'cart:add' %} method="post">
                     {% csrf_token %}
-                    <select>
-                        <option val="1">11*25 cm</option>
+                    <select name="size_id">
+                        {% for size in flower.size.all %}
+                            <option value="{{ size.id }}">{{ size }}</option>
+                        {% endfor %}
                     </select>
                     <input type="text" hidden name="product_id" value="{{ flower.id }}" />
                     <input type="number" min="1" value="1" name="quantity"/>

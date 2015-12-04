@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from cart.models import CartItem
-from flowers.models import Flower
+from flowers.models import Flower, Size
 import decimal
 import random
 
@@ -26,11 +26,13 @@ def add_to_cart(request):
     postdata = request.POST.copy()
     product_id = postdata.get('product_id')
     quantity = postdata.get('quantity', 1)
+    size_id = postdata.get('size_id', 1)
     p = get_object_or_404(Flower, id=product_id)
+    s = get_object_or_404(Size, id=size_id)
     products = get_cart_items(request)
     in_cart = False
     for item in products:
-        if item.product.id == p.id:
+        if item.product.id == p.id and item.size.id == s.id:
             item.augment_quantity(quantity)
             in_cart = True
     if not in_cart:
@@ -38,6 +40,7 @@ def add_to_cart(request):
         item.product = p
         item.quantity = quantity
         item.cart_id = _cart_id(request)
+        item.size = s
         item.save()
 
 def count_cart_items(request):
