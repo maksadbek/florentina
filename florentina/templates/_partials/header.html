@@ -24,13 +24,12 @@
 						</ul>
 					</div>
 					<nav>
+                        {% load flatpages %}
+                        {% get_flatpages as flatpages %}
 						<ul>
-							<li><a href="#">О компании</a></li>
-							<li><a href="#">Как сделать заказ</a></li>
-							<li><a href="#">Оплата</a></li>
-							<li><a href="#">Доставка</a></li>
-							<li><a href="#">Филиалы</a></li>
-							<li><a href="#">Контакты</a></li>
+                            {% for page in flatpages %} 
+                            <li><a href="{{page.url}}">{{ page.title }}</a></li>
+                            {% endfor %}
 						</ul>
 					</nav>
 				</div>
