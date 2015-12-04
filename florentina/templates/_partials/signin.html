@@ -1,12 +1,13 @@
 <div class="modal form_modal" id="signin">
-    <form>
+<form action="/accounts/login/" method="post" >
+    {% csrf_token %}
     <h3>Вход</h3>
     <div class="form_fields">
         <div class="usr">
-            <input type="text" placeholder="Логин">
+            <input type="text" name="email" placeholder="Логин">
         </div>
         <div class="pass">
-            <input type="password" placeholder="Пароль">
+            <input type="password" name="password" placeholder="Пароль">
         </div>
     </div>
     <div>

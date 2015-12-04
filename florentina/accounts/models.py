@@ -65,10 +65,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30)
     company = models.CharField(max_length=255)
     phone = models.CharField(max_length=11)
-    img = models.ImageField(
-        upload_to='images/%Y/%m/%d',
-        default="images/default.jpg"
-    )
     lastSeenProducts = models.ManyToManyField(Flower)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
@@ -100,7 +96,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.get_full_name()
 
 class  CustomUserForm(ModelForm):
-    password_verify = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = CustomUser
         
@@ -111,18 +106,10 @@ class  CustomUserForm(ModelForm):
             'company', 
             'phone', 
             'password',
-            'password_verify',
-            'img',
         ]
         widgets = {
             'password': forms.PasswordInput(),
         }
-    def clean(self):
-        password1 = self.cleaned_data.get('password')
-        password2 = self.cleaned_data.get('password_verify')
-        if password1 and password1 != password2:
-            raise forms.ValidationError("passwords don't match")
-        return self.cleaned_data
 
 class  CustomUserEditForm(ModelForm):
     class Meta:
@@ -133,5 +120,4 @@ class  CustomUserEditForm(ModelForm):
             'last_name', 
             'company', 
             'phone', 
-            'img',
         ]

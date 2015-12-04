@@ -2,14 +2,13 @@
 		<footer>
 			<div class="inner clearfix">
 				<nav>
-					<ul>
-						<li><a href="#">О нас</a></li>
-						<li><a href="#">Как сделать заказ</a></li>
-						<li><a href="#">Оплата</a></li>
-						<li><a href="#">Доставка</a></li>
-						<li><a href="#">Филиалы</a></li>
-						<li><a href="#">Контакты</a></li>
-					</ul>
+                    {% load flatpages %}
+                    {% get_flatpages as flatpages %}
+                    <ul>
+                        {% for page in flatpages %} 
+                        <li><a href="{{page.url}}">{{ page.title }}</a></li>
+                        {% endfor %}
+                    </ul>
 				</nav>
 				<div class="contacts clearfix">
 					<address>

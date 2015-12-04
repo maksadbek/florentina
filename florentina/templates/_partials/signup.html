@@ -1,21 +1,25 @@
 <div class="modal form_modal" id="signup">
-    <form>
+    <form action="/accounts/create/" method="POST">
+        {% csrf_token %}
         <h3>Регистрация</h3>
         <div class="form_fields">
             <div class="usr">
-                <input type="text" placeholder="Фамилия Имя">
+                <input type="text" name="first_name" placeholder="Имя">
+            </div>
+            <div class="usr">
+                <input type="text" name="last_name" placeholder="Фамилия">
             </div>
             <div class="email">
-                <input type="text" placeholder="E-mail">
+                <input type="text" name="email" placeholder="E-mail">
             </div>        
             <div class="pass">
-                <input type="password" placeholder="Пароль">
+                <input type="password" name="password" placeholder="Пароль">
             </div>
             <div class="phone">
-                <input type="text" placeholder="Телефон">
+                <input type="text" name="phone" placeholder="Телефон">
             </div>
             <div class="org">
-                <input type="text" placeholder="Организация, магазин">
+                <input type="text" name="company" placeholder="Организация, магазин">
             </div>
         </div>
         <div class="buy">
