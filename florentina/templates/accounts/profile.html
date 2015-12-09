@@ -3,24 +3,12 @@
     <div class="inner clearfix">
         <h1>Настройки</h1>
         <div class="settings clearfix">
-            <!-- <div class="image">
-                    <a href="{{ user.img.url }}"><img src="{{ user.img.url }}" /></a>
-                </div>-->
             <div class="personal_information">
                 <form action="/accounts/profile/" method="POST" enctype='multipart/form-data'>
                     {% csrf_token %}
-                    <div class="image">
-                        <a href="{{ user.img.url }}"><img width="240"
-                            height="240" src="{{ user.img.url }}" /></a>
-                        {{ form.img }}
-                    </div>
                     <div>
-                        <label>Фамилия</label>
+                        <label>Фамилия Имя</label>
                         {{ form.last_name }}
-                    </div>
-                    <div>
-                        <label>Имя</label>
-                        {{ form.first_name }}
                     </div>
                     <div>
                         <label>E-mail</label>
@@ -34,12 +22,13 @@
                         <label>Организация</label>
                         {{ form.company }}
                     </div>
-                    <div>
+                    <div class="buy">
                         <button type="submit">Сохранить</button>
                     </div>
                 </form>
             </div>
         </div>
+        {% if products|length %}
         <div class="prod_list_wrap siblings">
             <div class="title">Недавно просмотренные товары:</div>
             <div class="prod_list clearfix">
@@ -68,6 +57,7 @@
                 {% endfor %}
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 {% include '_partials/footer.html' %}

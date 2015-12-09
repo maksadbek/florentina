@@ -82,6 +82,7 @@ a:visited{
 
 input[type=text],
 input[type=password],
+input[type=email],
 textarea{
 	border:1px solid #d2cfcb;
 	height: 37px;
@@ -167,7 +168,40 @@ header{
 .rightside ul li a:hover{
 	color:#fff;
 	background:#a22c59;
-} 
+}
+.rightside ul.signed li a:hover, .rightside ul.signed li:hover a{
+	color:#fff;
+	background:#8839a2;
+}
+.rightside ul li{
+	position: relative;
+}
+.rightside ul li ul{
+	display: none;
+	background: #8839a2;
+	position: absolute;
+	z-index: 10;
+}
+.rightside ul li:hover ul{
+	display: block;
+}
+.rightside ul li ul li{
+	display: block;
+}
+.counter{
+	position: absolute;
+	color:#4d454f;
+	font-size: 9px;
+	background: #f4e6eb;
+	border-radius: 9px;
+	display: block;
+	width:17px;
+	height: 17px;
+	line-height: 17px;
+	text-align: center;
+	top:10px;
+	left: 20px;
+}
 .content{
 	position:relative;
 	padding:70px 0 386px 0;
@@ -307,8 +341,12 @@ header .work_time span{
 .prod_list_wrap .more{float:none;text-align:center;}
 .prod{width:202px;height:270px;float:left;margin: 0 38px 40px 0; position: relative;}
 .prod .favorite{position: absolute; top:10px; right: 10px;}
+
 .prod .favorite button{display: block;border: none; background:url(../images/favorite.png) no-repeat; width:17px; height: 17px;padding: 0; margin: 0;}
-.prod .favorite button:hover, .prod .favorite.checked button{background-position: 0 -51px;}
+
+.prod .favorite button:hover,
+.prod .favorite.checked button{background-position: 0 -51px;}
+
 .prod_inside{box-shadow:0 1px 1px 0 rgba(0,0,0,0.4); background: #fff; position: absolute; top:0; left:0; right:0; bottom: 0; transition:all 0.2s linear;}
 .prod a{color:#4d454f;text-decoration:none;}
 .prod .title{text-align:center;margin:0 10px;border-top:1px solid #eeebeb; font-size: 15px; padding: 7px 0px 0;}
@@ -474,12 +512,15 @@ footer .phones{
 	display:block;
 }
 
-.product .favorite{
+.product .favorite
+.list_row .favorite{
 	margin: 17px 0 0 0;
 	float:right;
 }
 
-.product .favorite button{
+.product .favorite button,
+.list_row .favorite button{
+	width: auto;
 	text-decoration:none;
 	color:#4d454f;
 	font-family:'PT Sans', serif;
@@ -494,7 +535,11 @@ footer .phones{
 	outline: none;
 }
 
-.product .favorite button:hover, .product .favorite button.checked{
+.product .favorite button:hover,
+.product .favorite button.checked,
+.list_row .favorite button:hover,
+.list_row .favorite.checked button
+{
 	background-position: 0 -51px;
 }
 
@@ -630,6 +675,8 @@ footer .phones{
 	background: url(../images/info_ico.png) no-repeat;
 	width:22px;
 	height: 22px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .list_row .descr{
@@ -706,20 +753,26 @@ footer .phones{
 .settings .image{float:left;margin:0 40px 0 0; box-shadow:0px 1px 2px 0 rgba(0,0,0,0.3);}
 .settings .image img{display:block;}
 
-.personal_information{float: right;}
-.personal_information form > div{margin: 0 0 10px 0;}
+.personal_information{width:542px; margin: 0 auto;}
+.personal_information form > div{margin: 0 0 10px 0; font-size: 0; line-height: 0;}
+.personal_information .buy{margin:20px 0 0; text-align: right;}
 .personal_information label{
 	color:#afaaae;
 	font-size: 14px;
 	text-transform: uppercase;
 	font-weight: normal;
-	min-width: 200px;
 	display: inline-block;
-	text-align: right;
-	margin: 0 25px 0 0;
+	text-align: left;
+	background:#f4eae2;
+	line-height: 40px;
+	width:122px;
+	padding: 0 0 0 20px;
+	vertical-align: middle;
 }
 .personal_information input{
 	border:none;
+	vertical-align: middle;
+	font-size: 16px;
 	margin: 0;
 	padding: 0 20px;
 	width: 360px;

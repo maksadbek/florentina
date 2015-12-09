@@ -11,13 +11,17 @@
                                 <a href="#"><img width="50" height="50" src="{{ item.product.img.url }}"/></a>
                             </div>
 							<div class="descr">
-                                <div class="title">{{ item.name }}</div>
-                                <div class="size">{{ item.size }}</div>
-                                <div class="info"><!-- {{ item.product.info }} --></div>
+                                <div class="title">{{ item.name }}<div class="info"><!-- {{ item.product.info }} --></div></div>
+                                <div class="size">{{ item.size.size }}</div>
 							</div>
 							<div class="favorite">
-								<a href="#">В избранном</a>
-							</div>
+                                <form action="{{ favourites_new_path }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
+                                    <!-- todo: fix it! -->
+                                    <button>В избранное</button>
+                                </form>
+                            </div>
 							<div class="count">
                                 <input type="number" min="1" value="{{ item.quantity }}" />
 							</div>

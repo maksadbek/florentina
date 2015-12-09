@@ -28,6 +28,6 @@ def detail(request, id):
     flower = get_object_or_404(Flower, id=id)
     if not request.user.is_anonymous():
         request.user.lastSeenProducts.add(flower)
-    flowers = Flower.objects.filter(category=flower.category).order_by('?')[:4]
+    flowers = Flower.objects.filter(category=flower.category).exclude(id=id).order_by('?')[:4]
     context = {'flower':flower, 'flowers':flowers}
     return render(request, 'flowers/detail.html', context)

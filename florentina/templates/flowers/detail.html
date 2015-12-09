@@ -23,7 +23,7 @@
                     {% csrf_token %}
                     <select name="size_id">
                         {% for size in flower.size.all %}
-                            <option value="{{ size.id }}">{{ size }}</option>
+                            <option value="{{ size.id }}">{{ size.size }}</option>
                         {% endfor %}
                     </select>
                     <input type="text" hidden name="product_id" value="{{ flower.id }}" />
@@ -35,6 +35,7 @@
             </div>
             <div class="info_block"><p>{{ flower.info }}</p></div>
         </div>
+        {% if flowers|length %}
         <div class="prod_list_wrap siblings">
             <div class="title">Другие товары из этого раздела:</div>
             <div class="prod_list clearfix">
@@ -63,6 +64,7 @@
                 {% endfor %}
             </div>
         </div>
+        {% endif %}
         <div class="back"><a href="#">Назад</a></div>
     </div>
 </div>
