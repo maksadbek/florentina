@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 
@@ -21,8 +21,10 @@ def signup(request):
 def create(request):
     user = CustomUserForm(request.POST, request.FILES)
     if not user.is_valid():
-        context = {'form':user}
-        return render(request, 'accounts/signup.html', context)
+        context = {
+            'errors':user.errors,
+        }
+        return JsonResponse(context)
     else: 
         newuser = user.save()
         newuser.set_password(newuser.password)
@@ -45,7 +47,7 @@ def auth(request):
         return redirect('accounts:profile')
     else:
         context = {'error':'invalid email or password'}
-        return render(request, 'accounts/signin.html', context)
+        return JsonResponse(context)
 
 @login_required(login_url='/accounts/signin')
 def signout(request):

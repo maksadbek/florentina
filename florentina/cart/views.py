@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from cart.models import CartItem
+from django.http import JsonResponse
 from flowers.models import Flower, Size
 import decimal
 import random
@@ -59,7 +60,9 @@ def show(request):
 
 def add(request):
     add_to_cart(request)
-    return redirect('cart:show')
+    count = count_cart_items(request)
+    context = {'cart_items': count}
+    return JsonResponse(context)
 
 def remove(request):
     postdata = request.POST.copy()
@@ -68,4 +71,5 @@ def remove(request):
     item = get_single_item(request, product_id)
     if item:
         item.delete()
-    return redirect('cart:show')
+    context = {'cart_items': count}
+    return JsonResponse(context)
