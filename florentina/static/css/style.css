@@ -138,9 +138,20 @@ nav ul li, .line ul li{display:inline-block; font:normal 16px/1.4 'PT Sans', san
 	width:21px;
 	height:19px;
 	background:url(../images/basket_ico.png) no-repeat;	
+	margin: -3px 12px 0 0;
 }
 .ico.prof{
-	background:url(../images/profile_ico.png) no-repeat;	
+	background:url(../images/profile_ico.png) no-repeat;
+	margin: -2px 9px 0 0px;
+}
+.ico.fav{
+	background:url(../images/favorite.png) no-repeat;
+}
+.ico.set{
+	background:url(../images/settings_ico.png) no-repeat;
+}
+.ico.exit{
+	background:url(../images/exit_ico.png) no-repeat;
 }
 header{
 	background:url(../images/header_bg.png) no-repeat center 0;
@@ -173,6 +184,14 @@ header{
 	color:#fff;
 	background:#8839a2;
 }
+.rightside .arr{
+	background: url(../images/profile_drop.png) no-repeat 0 center;
+	display: inline-block;
+	width: 13px;
+	height: 48px;
+	vertical-align: middle;
+	margin:0 -10px 0 9px
+}
 .rightside ul li{
 	position: relative;
 }
@@ -181,12 +200,21 @@ header{
 	background: #8839a2;
 	position: absolute;
 	z-index: 10;
+	width: 100%;
+	padding: 10px 0 25px 0;
 }
 .rightside ul li:hover ul{
 	display: block;
 }
 .rightside ul li ul li{
 	display: block;
+}
+.rightside ul li ul li a{
+	line-height: 1.7;
+	font-size: 14px;
+}
+.rightside ul li ul li a .ico{
+	margin: 0 10px 0 0;
 }
 .counter{
 	position: absolute;
@@ -197,10 +225,10 @@ header{
 	display: block;
 	width:17px;
 	height: 17px;
-	line-height: 17px;
+	line-height: 21px;
 	text-align: center;
-	top:10px;
-	left: 20px;
+	top:8px;
+	left: 25px;
 }
 .content{
 	position:relative;
@@ -512,8 +540,7 @@ footer .phones{
 	display:block;
 }
 
-.product .favorite
-.list_row .favorite{
+.product .favorite{
 	margin: 17px 0 0 0;
 	float:right;
 }
@@ -661,6 +688,7 @@ footer .phones{
 	vertical-align:top;
 	font-size:16px;
 	line-height:1.4;
+	vertical-align: middle;
 }
 
 .list_row .image{
@@ -679,6 +707,13 @@ footer .phones{
 	vertical-align: middle;
 }
 
+.list_row .info_inner{
+	
+}
+.list_row .title{
+	font-size: 18px;
+	margin: 30px 0 0;
+}
 .list_row .descr{
 	width:440px;
 }
@@ -697,23 +732,30 @@ footer .phones{
 }
 
 .list_row input[type=number]{
-	width:128px;
+	width:118px;
 	height:40px;
 	border:none;
 	outline:none;
 	font: inherit;
 	text-align: center;
-	padding: 0;
+	padding: 0 0 0 10px;
 }
 
-.list_row button{
+
+.list_row .delete button{
 	width:12px;
 	height:12px;
 	border:none;
 	outline:none;
-	background: none;
+	background: url(../images/del.png) no-repeat;
 	padding: 0;
 	margin: 0;
+}
+.list_row .size{
+	font-size: 14px;
+}
+.list_row .delete button:hover{
+	background-position: 0 -12px;
 }
 
 .btn, .btn:visited{
@@ -747,6 +789,10 @@ footer .phones{
 .numberfield .minus, .numberfield .plus{display: block; width:42px;height: 37px; background: #f4eae2; position: absolute; top:0; left: 0; background-image: url(../images/minus.png); background-repeat: no-repeat; background-position: center center;}
 .numberfield .plus{right: 0; left: auto; background-image: url(../images/plus.png);}
 
+.list_row .numberfield .minus,
+.list_row .numberfield .plus{
+	height: 40px;
+}
 
 /*SETTINGS*/
 .settings{padding: 0 9px;}
@@ -779,4 +825,24 @@ footer .phones{
 	height: 40px;
 	border-radius: 3px;
     box-shadow: 0px 1px 2px 0 rgba(0,0,0,0.3);
+}
+
+/**TOOLTIPS**/
+.tooltipster-default{
+	background:#ffffff;
+	color:#4d454f;
+	border:none;
+	box-shadow:0px 0px 10px -1px rgba(0,0,0,0.2);
+}
+
+.tooltipster-default .tooltipster-content{
+	padding: 20px 30px;
+}
+.tooltipster-arrow-bottom-left span{
+	left: 0;
+}
+.tooltipster-arrow-bottom-left span{
+	border-left:0 !important;
+	border-right: 12px solid transparent !important;
+    border-bottom: 12px solid;
 }

@@ -1,14 +1,41 @@
 {% include '_partials/header.html' %}
 <div class="content">
     <div class="inner clearfix">
-        <ol>
-        {% for favourite in favourites %}
-            <li>{{ favourite.flower.name }}</li>
-            <form action="{% url 'favourites:delete' favourite.id %}" method="DELETE">
-                <input type="submit" value="remove" />
-            </form>
-        {% endfor %}
-        </ol>
+        <h1>Избранное</h1>
+            <div class="content_wrapper">
+                <div class="data_list">
+                    {% for favourite in favourites %}
+                        <div class="list_row">
+                            <div class="image">
+                                <a href="#"><img width="90" height="76" src="{{ favourite.flower.img.url }}"/></a>
+                            </div>
+                            <div class="descr">
+                                <div class="title">
+                                    {{ favourite.flower.name }}
+                                    <div class="info tooltip" title="{{ favourite.flower.info }}"></div>
+                                </div>
+                            </div>
+                            <div class="favorite checked">
+                                <form action="{{ favourites_new_path }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="text" hidden name="flower_id" value="{{ flower.id }}" />
+                                    <!-- todo: fix it! -->
+                                    <button>В избранном</button>
+                                </form>
+                            </div>
+                            <div class="buy">
+                                <button>В корзину</button>
+                            </div>
+                            <div class="delete">
+                                <form action="{% url 'favourites:delete' favourite.id %}" method="DELETE">
+                                    {% csrf_token %}
+                                    <button type="submit"></button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% include '_partials/footer.html' %}
