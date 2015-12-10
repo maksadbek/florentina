@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load cart_count %}
 {% load tags %}
 <!DOCTYPE html>
 <html lang="ru" class="no-js">
@@ -19,23 +20,30 @@
 			<div class="line">
 				<div class="inner clearfix">
 					<div class="rightside">
-						<ul class="signed">
-							<li><a href="/cart/"><span class="ico bask"></span>Корзина<span class="counter">99</span></a></li>
-							<li>
-								<a href="/accounts/profile/"><span class="ico prof"></span>Профиль<span class="arr"></span></a>
-								<ul>
-									<li><a href="/favourites/"><span class="ico fav"></span>Избранное</a></li>
-									<li><a href="/accounts/profile/"><span class="ico set"></span>Настройки</a></li>
-									<li><a href="/accounts/logout/"><span class="ico exit"></span>Выход</a></li>
-								</ul>								
-							</li>
-						</ul>
-						<!--
-						<ul>
-							<li><a class="signup" href="#signup"><span class="ico reg"></span>Регистрация</a></li>
-							<li><a class="signin" href="#signin"><span class="ico auth"></span>Вход</a></li>
-						</ul>
-						-->
+                        {% if not user.is_anonymous %}
+                            <ul class="signed">
+                                <li>
+                                    <a href="/cart/">
+                                <span class="ico bask"></span>Корзина<span class="counter">{% cart_count request %}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/accounts/profile/">
+                                        <span class="ico prof"></span>Профиль<span class="arr"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="/favourites/"><span class="ico fav"></span>Избранное</a></li>
+                                        <li><a href="/accounts/profile/"><span class="ico set"></span>Настройки</a></li>
+                                        <li><a href="/accounts/logout/"><span class="ico exit"></span>Выход</a></li>
+                                    </ul>								
+                                </li>
+                            </ul>
+                          {% else %}
+                            <ul>
+                                <li><a class="signup" href="#signup"><span class="ico reg"></span>Регистрация</a></li>
+                                <li><a class="signin" href="#signin"><span class="ico auth"></span>Вход</a></li>
+                            </ul>
+                          {% endif %}
 					</div>
 					<nav>
                         {% load flatpages %}
