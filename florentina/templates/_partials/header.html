@@ -1,6 +1,6 @@
 {% load staticfiles %}
-{% load cart_count %}
 {% load tags %}
+{% load cart_count %}
 <!DOCTYPE html>
 <html lang="ru" class="no-js">
 	<head>
@@ -24,7 +24,8 @@
                             <ul class="signed">
                                 <li>
                                     <a href="/cart/">
-                                <span class="ico bask"></span>Корзина<span class="counter">{% cart_count request %}</span>
+                                        <span class="ico bask"></span>Корзина
+                                        <span class="counter">{% cart_count request.session.cart_id %}</span>
                                     </a>
                                 </li>
                                 <li>

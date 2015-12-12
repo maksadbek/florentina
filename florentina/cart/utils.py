@@ -1,5 +1,7 @@
-import random
+from django.shortcuts import get_object_or_404
 from cart.models import CartItem
+from flowers.models import Flower, Size
+import random
 
 CART_ID_SESSION_KEY = 'cart_id'
 
@@ -16,8 +18,19 @@ def _generate_cart_id():
         cart_id += characters[random.randint(0, len(characters)-1)]
     return cart_id 
 
+
 def get_cart_items(request):
     return CartItem.objects.filter(cart_id=_cart_id(request))
+
+def get_cart_items_by_session_key(session_key):
+    return CartItem.objects.filter(cart_id=session_key)
+
+def count_cart_items_by_session_key(session_key):
+    count = 0
+    cart_items = get_cart_items_by_session_key(session_key)
+    for item in cart_items:
+        count = item.quantity
+    return count
 
 def add_to_cart(request):
     postdata = request.POST.copy()
@@ -41,7 +54,11 @@ def add_to_cart(request):
         item.save()
 
 def count_cart_items(request):
-    return get_cart_items(request).count()
+    count = 0
+    cart_items = get_cart_items(request)
+    for item in cart_items:
+        count = item.quantity
+    return count
             
 def get_single_item(request, product_id):
     return get_object_or_404(
