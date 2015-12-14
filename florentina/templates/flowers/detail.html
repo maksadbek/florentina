@@ -19,7 +19,7 @@
             <div class="title">{{ flower.name }}</div>
             <div class="description"><p>{{ flower.desc }}</p></div>
             <div class="buy_row">
-                <form action={% url 'cart:add' %} method="post">
+                <form class="buy_form" action={% url 'cart:add' %} method="post">
                     {% csrf_token %}
                     <select name="size_id">
                         {% for size in flower.size.all %}
@@ -65,7 +65,7 @@
             </div>
         </div>
         {% endif %}
-        <div class="back"><a href="#">Назад</a></div>
+        <div class="back"><a href="{% url 'flowers:index' %}?category={{flower.category.name}}">Назад</a></div>
     </div>
 </div>
 {% include '_partials/footer.html' %}

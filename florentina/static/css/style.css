@@ -24,18 +24,8 @@
 
 }
 
-@font-face {
-    font-family: 'PT Serif';
-    src: url('../fonts/ptserifregular-webfont.eot');
-    src: url('../fonts/ptserifregular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/ptserifregular-webfont.woff2') format('woff2'),
-         url('../fonts/ptserifregular-webfont.woff') format('woff'),
-         url('../fonts/ptserifregular-webfont.ttf') format('truetype'),
-         url('../fonts/ptserifregular-webfont.svg#pt_serifregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+@import url(https://fonts.googleapis.com/css?family=PT+Serif&subset=latin,cyrillic);
 
-}
 .clearfix:after, .clearfix:before{
 	content:"";
 	display:table;
@@ -341,11 +331,11 @@ header .work_time span{
 .news_item {margin:0 0 54px;}
 .news_item .image{float:left; margin:0 22px 0 0; border:2px solid #f4eae2;}
 .news_item .image img{display:block;}
-.news_item .title{color:#4d454f; font-size: 20px; font-weight: bold; margin: 7px 0 11px;}
+.news_item .title{color:#4d454f; font-size: 20px; font-weight: bold; margin: 7px 0 0;}
 .news_item .title a{color: inherit; text-decoration: none;}
-
+.news_item .date{color:#66287a; background: url(../images/date_ico.png) no-repeat 0 2px; overflow: hidden; padding: 0 0 0 25px; margin: 5px 0;}
 .more{float:right;}
-.more a, .buy a, .buy button{
+.more a, .more button, .buy a, .buy button{
 	border:none;
 	padding: 0;
 	margin: 0;
@@ -361,7 +351,7 @@ header .work_time span{
 	width:145px;
 	box-shadow:0px 1px 2px 0 rgba(0,0,0,0.3);
 }
-
+.news_list .news_item{padding: 0 0 35px 0; margin: 0 0 30px 0; border-bottom:1px dashed #e4ccb5;}
 
 /* PRODUCTS */
 .prod_list .prod:nth-child(4n){margin:0 0 40px 0;}
@@ -491,6 +481,7 @@ footer .phones{
 	padding: 0;
 	color:#8839a2;
 	font-size: 22px;
+	background: url(../images/modal_title.png) no-repeat center;
 }
 
 .modal form{
@@ -503,8 +494,16 @@ footer .phones{
 .form_fields > div input{background-position: 10px center; width:280px; padding: 0 34px; line-height: 42px;}
 .form_fields > div input:focus{padding: 0 34px; outline-offset:0;}
 
-.modal input{
-	
+.modal a{float:left; color:#4d454f; font-size: 14px; margin: 9px 0 0 91px;}
+.modal .buy{
+	text-align: right;
+	margin: 20px 0 0;
+}
+
+.errors{
+	font-size: 14px;
+	color:#fa3636;
+	text-align: left;
 }
 
 .usr input{background: url(../images/usr_ico.png) no-repeat;}
@@ -801,7 +800,7 @@ footer .phones{
 
 .personal_information{width:542px; margin: 0 auto;}
 .personal_information form > div{margin: 0 0 10px 0; font-size: 0; line-height: 0;}
-.personal_information .buy{margin:20px 0 0; text-align: right;}
+.personal_information .more{margin:20px 0 0; float:none; text-align: right; font-size: 16px; line-height: 1.4;}
 .personal_information label{
 	color:#afaaae;
 	font-size: 14px;

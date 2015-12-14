@@ -7,7 +7,11 @@
                 <form action="/accounts/profile/" method="POST" enctype='multipart/form-data'>
                     {% csrf_token %}
                     <div>
-                        <label>Фамилия Имя</label>
+                        <label>Имя</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label>Фамилия</label>
                         {{ form.last_name }}
                     </div>
                     <div>
@@ -22,7 +26,7 @@
                         <label>Организация</label>
                         {{ form.company }}
                     </div>
-                    <div class="buy">
+                    <div class="more">
                         <button type="submit">Сохранить</button>
                     </div>
                 </form>
@@ -41,7 +45,7 @@
                             <a href="#"><img width="200" height="200" src="{{ product.img.url}}" /></a>
                         </div>
                         <div class="title"><a href="#">{{ product.name }}</a></div>
-                        <form action={% url 'cart:add' %} method="post">
+                        <form class="buy_form" action={% url 'cart:add' %} method="post">
                             <div class="buy">
                                 {% csrf_token %}
                                 <input type="text" name="product_id" value="{{ product.id }}" hidden />

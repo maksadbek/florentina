@@ -24,7 +24,8 @@ import flowers.views as flowers_views
 urlpatterns = [
     url(r'^$', flowers_views.index),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^flowers/', include('flowers.urls', namespace='flowers') ),
+    url(r'^flowers/', include('flowers.urls', namespace='flowers')),
+    url(r'^news/', include('news.urls', namespace='news')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^favourites/', include('favourites.urls', namespace='favourites')),

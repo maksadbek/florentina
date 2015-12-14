@@ -37,7 +37,7 @@
                                     <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
                                 </div>
                                 <div class="title"><a href="#">{{ flower.name }}</a></div>
-                                <form action={% url 'cart:add' %} method="post">
+                                <form class="buy_form" action={% url 'cart:add' %} method="post">
                                     <div class="sizes">
                                         <ul>
                                             <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>

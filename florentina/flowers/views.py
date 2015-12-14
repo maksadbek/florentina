@@ -4,14 +4,16 @@ from django.http import HttpResponse
 
 from .models import Flower
 from .models import Category
+from news.models import News
 
 def index(request):
     category_name = request.GET.get('category','')
     sorting = request.GET.get('sorting', '')
     flowers = Flower.objects.order_by('category')
+    news = News.objects.order_by('date')[:1]
     # if category is not given, then show all
     if category_name == "":
-        context = {'flowers':flowers}
+        context = {'flowers':flowers, 'news':news}
         return render(request, 'flowers/index.html', context)
     # if category is given, filter by category and sort by popularity by default
     if sorting not in ["popularity", "created"]:
