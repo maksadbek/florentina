@@ -2,14 +2,15 @@
 from django.db import models
 from django.utils import timezone
 
-class Category(models.Model):
+class Type(models.Model):
     name = models.CharField(max_length=200)
 
     def __unicode__(self):
         return self.name
 
-class Type(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=200)
+    type = models.ManyToManyField(Type, null=True)
 
     def __unicode__(self):
         return self.name
