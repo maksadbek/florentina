@@ -31,3 +31,5 @@ itsdangerous==0.24
 lxml==3.4.0
 mercurial==3.1.2
 ndg-httpsclient==0.3.2
+dj-database-url==0.3.0
+dj-static==0.0.6
