@@ -41,7 +41,7 @@ $(".modal form").bind("submit", function(e){
 
 $("form.buy_form").bind("submit", function(e){
 	e.preventDefault();
-	var form = $(this).parents("form");
+	var form = $(this);
 	$.ajax({
 		type: form.attr("method"),
 		url: form.attr("action"),
