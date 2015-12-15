@@ -11,15 +11,10 @@ from django.contrib.flatpages.admin import FlatPageAdmin as OldFlatPageAdmin
 from django.contrib.flatpages.admin import FlatpageForm as OldFlatpageForm
  
 from django import forms
-from redactor.widgets import RedactorEditor
  
 class FlatpageForm(OldFlatpageForm):
-    #content = forms.CharField(widget=RedactorEditor())
     class Meta:
         model = FlatPage
-        widgets = {
-           'content': RedactorEditor(),
-        }
         fields = "__all__"
  
 class FlatPageAdmin(OldFlatPageAdmin):

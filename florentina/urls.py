@@ -29,5 +29,4 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^favourites/', include('favourites.urls', namespace='favourites')),
-    url(r'^redactor/', include('redactor.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
