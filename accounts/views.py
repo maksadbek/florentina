@@ -21,9 +21,7 @@ def signup(request):
 def create(request):
     user = CustomUserForm(request.POST, request.FILES)
     if not user.is_valid():
-        context = {
-            'errors':user.errors,
-        }
+        context = { 'errors':user.errors }
         return JsonResponse(context)
     else: 
         newuser = user.save()
@@ -49,12 +47,12 @@ def auth(request):
         context = {'error':'invalid email or password'}
         return JsonResponse(context)
 
-@login_required(login_url='/accounts/signin')
+@login_required(login_url='/')
 def signout(request):
     logout(request)
-    return redirect('accounts:signin')
+    return redirect('flowers:index')
 
-@login_required(login_url='/accounts/signin')
+@login_required(login_url='/')
 def profile(request):
     if request.method == "POST":
         form = CustomUserEditForm(request.POST, request.FILES, instance=request.user)
