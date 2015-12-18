@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/')
 def show(request):
-    print Favourite.objects.all()
     f = Favourite.objects.filter(user=request.user)
     context = {"favourites":f}
     return render(request, "favourites/show.html", context)
@@ -16,10 +15,12 @@ def new(request):
     postdata = request.POST.copy()
     flower_id = postdata.get("flower_id")
     flower = get_object_or_404(Flower, id=flower_id)
-    favourite = Favourite() 
-    favourite.user = request.user
-    favourite.flower = flower
-    favourite.save()
+    f = Favourite.objects.filter(flower=flower, user=request.user)
+    if len(f) is 0:
+        favourite = Favourite()
+        favourite.user = request.user
+        favourite.flower = flower
+        favourite.save()
     return HttpResponse(status=201)
 
 @login_required(login_url='/')
