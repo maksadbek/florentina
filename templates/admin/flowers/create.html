@@ -1,0 +1,27 @@
+{% extends "admin/change_form.html" %}
+{% block javascript %}
+    <script type="text/javascript" charset="utf-8">
+        console.log("loaded");
+        var categorySelect = document.getElementById('id_category'),
+            typeSelect = document.getElementById('id_type');
+        function getAndSet(e){
+            var categoryID = e.target.value;
+            var request = new XMLHttpRequest();
+            request.open('GET', '/flowers/catogory_types/' + categoryID, true);
+            request.send();
+            request.onreadystatechange = function() {
+                if(request.status === 200) {
+                    console.log(request.responseText);
+                    var html = "<option value>-------</option>";
+                    for(var option in request.responseText){
+                        html += "<option value="+option.id +">" + option.name + "</option>";
+                    }
+                    typeSelect.innerHTML = html;
+                } else if(request.status === 404) {
+                    typeSelect.innerHTML = "<option value>---------</option>";
+                }
+            }
+        }
+        categorySelect.onchange = getAndSet;
+    </script>
+{% endblock %}

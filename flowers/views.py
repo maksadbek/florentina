@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 
 from .models import Flower
 from .models import Category
@@ -33,3 +34,10 @@ def detail(request, id):
     flowers = Flower.objects.filter(category=flower.category).exclude(id=id).order_by('?')[:4]
     context = {'flower':flower, 'flowers':flowers}
     return render(request, 'flowers/detail.html', context)
+
+def category_types(request, id):
+    category = get_object_or_404(Category,id=id)
+    types = category.type.all()
+    response =  serializers.serialize('json', types)
+    print response
+    return HttpResponse(response)
