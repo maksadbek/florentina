@@ -10,15 +10,15 @@
                         <div class="sort">
                             <ul>
                                 <li><span>Сортировать по:</span></li>
-                                <li><a href="#">популярности</a></li>
-                                <li><a href="#">новинкам</a></li>
+        <li><a href="{% url 'flowers:index'%}?type={{t.name}}&category={{category.name}}&sorting=popularity">популярности</a></li>
+        <li><a href="{% url 'flowers:index'%}?type={{t.name}}&category={{category.name}}&sorting=created">новинкам</a></li>
                             </ul>
                         </div>
                         <div class="sub_cat">
                             <ul>
-                                <li><a href="#">Комнатные</a></li>
-                                <li><a href="#">Уличные</a></li>
-                                <li><a href="#">Луковичные</a></li>
+                                {% for t in category.type.all %}
+                                <li><a href="{% url 'flowers:index' %}?type={{t.name}}?category={{category.name}}">{{ t.name }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </form>

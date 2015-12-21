@@ -3,12 +3,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 
-from .models import Flower
-from .models import Category
+from .models import Flower, Category, Type
 from news.models import News
 
 def index(request):
     category_name = request.GET.get('category','')
+    type_name = request.GET.get('type','')
     sorting = request.GET.get('sorting', '')
     flowers = Flower.objects.order_by('category')
     news = News.objects.order_by('date')[:1]
@@ -20,10 +20,16 @@ def index(request):
     if sorting not in ["popularity", "created"]:
         sorting = "popularity"
 
+    category = Category.objects.filter(name=category_name).first()
+    flower_type = Type.objects.filter(name=type_name).first()
+    if flower_type is None:
+        flower_type = category.type.first()
+
     context = { 
         'sorting': sorting, 
-        'category':category_name,
-        'flowers':flowers.filter(category__name=category_name).order_by("-"+sorting) ,
+        'category':category,
+        'type':flower_type,
+        'flowers':Flower.objects.filter(category=category).filter(type=flower_type).order_by("-"+sorting),
     }
     return render(request, 'flowers/catalog.html', context)
 
