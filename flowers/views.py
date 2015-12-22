@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
+from django.core import Paginator
 
 from .models import Flower
 from .models import Category
@@ -10,20 +11,31 @@ from news.models import News
 def index(request):
     category_name = request.GET.get('category','')
     sorting = request.GET.get('sorting', '')
-    flowers = Flower.objects.order_by('category')
+    flowers_list = Flower.objects.order_by('category')
+
     news = News.objects.order_by('date')[:1]
     # if category is not given, then show all
     if category_name == "":
-        context = {'flowers':flowers, 'news':news}
+        context = {'flowers': flowers_list, 'news': news}
         return render(request, 'flowers/index.html', context)
     # if category is given, filter by category and sort by popularity by default
     if sorting not in ["popularity", "created"]:
         sorting = "popularity"
 
+    page = request.GET.get('page',1)
+    paginator = Paginator(flowers_list.filter(category__name=category_name).order_by("-"+sorting), 28)
+
+    try:
+        flowers = paginator.page(page)
+    except:
+        flowers = paginator.page(1)
+    except EmptyPage:
+        flowers = paginator.page(paginator.num_pages)
+
     context = { 
         'sorting': sorting, 
         'category':category_name,
-        'flowers':flowers.filter(category__name=category_name).order_by("-"+sorting) ,
+        'flowers': flowers,
     }
     return render(request, 'flowers/catalog.html', context)
 
