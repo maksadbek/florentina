@@ -2,14 +2,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
-from django.core import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Flower
-from .models import Category
+from .models import Flower, Category, Type
 from news.models import News
 
 def index(request):
     category_name = request.GET.get('category','')
+    type_name = request.GET.get('type','')
     sorting = request.GET.get('sorting', '')
     flowers_list = Flower.objects.order_by('category')
 
@@ -23,15 +23,17 @@ def index(request):
         sorting = "popularity"
 
     page = request.GET.get('page',1)
-    paginator = Paginator(flowers_list.filter(category__name=category_name).order_by("-"+sorting), 28)
+    paginator = Paginator(flowers_list.filter(category__name=category_name).order_by("-"+sorting), 1)
 
+    print page
     try:
         flowers = paginator.page(page)
-    except:
+    except PageNotAnInteger:
         flowers = paginator.page(1)
     except EmptyPage:
         flowers = paginator.page(paginator.num_pages)
 
+    print flowers.paginator.page_range
     context = { 
         'sorting': sorting, 
         'category':category_name,

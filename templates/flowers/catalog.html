@@ -10,15 +10,19 @@
                         <div class="sort">
                             <ul>
                                 <li><span>Сортировать по:</span></li>
-                                <li><a href="#">популярности</a></li>
-                                <li><a href="#">новинкам</a></li>
+    <li>
+        <a href="{% url 'flowers:index'%}?type={{t.name}}&category={{category.name}}&sorting=popularity">популярности</a>
+    </li>
+    <li>
+        <a href="{% url 'flowers:index'%}?type={{t.name}}&category={{category.name}}&sorting=created">новинкам</a>
+    </li>
                             </ul>
                         </div>
                         <div class="sub_cat">
                             <ul>
-                                <li><a href="#">Комнатные</a></li>
-                                <li><a href="#">Уличные</a></li>
-                                <li><a href="#">Луковичные</a></li>
+                                {% for t in category.type.all %}
+            <li><a href="{% url 'flowers:index' %}?type={{t.name}}?category={{category.name}}">{{ t.name }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </form>
@@ -40,10 +44,10 @@
                                 <form class="buy_form" action={% url 'cart:add' %} method="post">
                                     <div class="sizes">
                                         <ul>
-                                            <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>
-                                            <li><input type="radio" name="size" id="size_2" /><label for="size_2">13х35см</label></li>
-                                            <li><input type="radio" name="size" id="size_3" /><label for="size_3">23х35см</label></li>
-                                            <li><input type="radio" name="size" id="size_4" /><label for="size_4">25х70см</label></li>
+                            <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>
+                            <li><input type="radio" name="size" id="size_2" /><label for="size_2">13х35см</label></li>
+                            <li><input type="radio" name="size" id="size_3" /><label for="size_3">23х35см</label></li>
+                            <li><input type="radio" name="size" id="size_4" /><label for="size_4">25х70см</label></li>
                                         </ul>
                                     </div>
                                     <div class="buy">
@@ -61,6 +65,21 @@
 					{% endfor %}
 				</div>
 			</div>
+            <div class="pager">
+                <ul>
+                    {% if flowers.has_previous %}
+                    <li class="previous"><a href="?page={{ flowers.previous_page_number }}">next</a></li>
+                    {% endif %}
+                    {% for p in flowers.paginator.page_range %}
+                    <li>
+<a href="{% url 'flowers:index'%}?page={{p }}&type={{t.name}}&category={{category.name}}&sorting=popularity">{{ p }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if flowers.has_previous %}
+                    <li class="next"><a href="?page={{ flowers.next_page_number }}">previous</a></li>
+                    {% endif %}
+                </ul>
+            </div>
 		</div>
     </div>
 </div>
