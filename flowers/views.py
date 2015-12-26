@@ -13,11 +13,17 @@ def index(request):
     type_name = request.GET.get('type','')
     sorting = request.GET.get('sorting', '')
     flowers_list = Flower.objects.order_by('category')
+    flower_categories = {}
+    for flower in flowers_list:
+        if flower.category not in flower_categories.keys():
+            flower_categories[flower.category] = []
+        if flower not in flower_categories.values():
+            flower_categories[flower.category].append(flower)
 
     news = News.objects.order_by('date')[:1]
     # if category is not given, then show all
     if category_name == "":
-        context = {'flowers': flowers_list, 'news': news}
+        context = {'flowers': flower_categories, 'news': news}
         return render(request, 'flowers/index.html', context)
     # if category is given, filter by category and sort by popularity by default
     if sorting not in ["popularity", "created"]:

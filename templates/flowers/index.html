@@ -18,14 +18,13 @@
             </div>
         </section>
 
-        {% regroup flowers|dictsort:"category" by category as flower_list %}
-        {% for group in flower_list %}
+        {% for group, flower_list in flowers.viewitems %}
         <section>
-            <h3>{{ group.grouper.name }}</h3>
+            <h3>{{ group.name }}</h3>
                 <div class="content_wrapper">
                     <div class="prod_list_wrap">
                         <div class="prod_list clearfix">
-                        {% for flower in group.list %}
+                        {% for flower in flower_list %}
                             <div class="prod">
                                 <div class="prod_inside">
                                     <div class="favorite">
@@ -64,6 +63,7 @@
 									</div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="more">
 							<a href="{% url 'flowers:index' %}?category={{group.grouper.name}}">Подробнее</a>
@@ -71,7 +71,6 @@
                     </div>
                 </div>
             </section>
-            {% endfor %}
             {% endfor %}
     </div>  
 </div>
