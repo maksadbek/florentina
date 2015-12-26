@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Flower, Category, Type
 from news.models import News
@@ -23,9 +24,14 @@ def index(request):
         sorting = "popularity"
 
     page = request.GET.get('page',1)
-    paginator = Paginator(flowers_list.filter(category__name=category_name).order_by("-"+sorting), 1)
+    category = Category.objects.get(name=category_name)
+    try:
+        type = Type.objects.get(name=type_name)
+    except ObjectDoesNotExist:
+        type = Type.objects.first()
 
-    print page
+    paginator = Paginator(flowers_list.filter(category__name=category_name, type=type).order_by("-"+sorting), 2)
+
     try:
         flowers = paginator.page(page)
     except PageNotAnInteger:
@@ -33,11 +39,11 @@ def index(request):
     except EmptyPage:
         flowers = paginator.page(paginator.num_pages)
 
-    print flowers.paginator.page_range
     context = { 
         'sorting': sorting, 
-        'category':category_name,
+        'category':category,
         'flowers': flowers,
+        'type':type,
     }
     return render(request, 'flowers/catalog.html', context)
 

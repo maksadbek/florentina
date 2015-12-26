@@ -21,7 +21,7 @@
                         <div class="sub_cat">
                             <ul>
                                 {% for t in category.type.all %}
-            <li><a href="{% url 'flowers:index' %}?type={{t.name}}?category={{category.name}}">{{ t.name }}</a></li>
+            <li><a href="{% url 'flowers:index' %}?type={{t.name}}&category={{category.name}}">{{ t.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -44,10 +44,15 @@
                                 <form class="buy_form" action={% url 'cart:add' %} method="post">
                                     <div class="sizes">
                                         <ul>
-                            <li><input type="radio" name="size" id="size_1" /><label for="size_1">11х25см</label></li>
-                            <li><input type="radio" name="size" id="size_2" /><label for="size_2">13х35см</label></li>
-                            <li><input type="radio" name="size" id="size_3" /><label for="size_3">23х35см</label></li>
-                            <li><input type="radio" name="size" id="size_4" /><label for="size_4">25х70см</label></li>
+                                            {% for size in flower.size.all %}
+                                            <li>
+                                                <input type="radio"
+                                                       name="size_id"
+                                                       value="{{ size.id }}"
+                                                       id="size_{{forloop.counter}}" />
+                                                <label for="size_{{forloop.counter}}">{{ size.size }}</label>
+                                            </li>
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                     <div class="buy">
@@ -68,15 +73,19 @@
             <div class="pager">
                 <ul>
                     {% if flowers.has_previous %}
-                    <li class="previous"><a href="?page={{ flowers.previous_page_number }}">next</a></li>
+                    <li class="previous"></a>
+<a href="{% url 'flowers:index'%}?page={{flowers.previous_page_number}}&type={{type.name}}&category={{category.name}}&sorting={{sorting}}">назад</a>
+                    </li>
                     {% endif %}
                     {% for p in flowers.paginator.page_range %}
-                    <li>
-<a href="{% url 'flowers:index'%}?page={{p }}&type={{t.name}}&category={{category.name}}&sorting=popularity">{{ p }}</a>
-                    </li>
+                        <li>
+<a href="{% url 'flowers:index'%}?page={{p}}&type={{type.name}}&category={{category.name}}&sorting={{sorting}}">{{ p }}</a>
+                        </li>
                     {% endfor %}
-                    {% if flowers.has_previous %}
-                    <li class="next"><a href="?page={{ flowers.next_page_number }}">previous</a></li>
+                    {% if flowers.has_next %}
+                    <li class="next">
+<a href="{% url 'flowers:index'%}?page={{flowers.next_page_number}}&type={{type.name}}&category={{category.name}}&sorting={{sorting}}">далее</a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
