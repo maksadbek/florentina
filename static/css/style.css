@@ -292,6 +292,8 @@ header .work_time span{
 .bottom{
 	background:url(../images/nav_bg.png) no-repeat center 0;
 	height:114px;
+	position: relative;
+	z-index:5;
 }
 
 .bottom nav{
@@ -301,6 +303,7 @@ header .work_time span{
 .bottom nav ul{padding:0 0 0 36px;}
 .bottom nav ul li{
 	background: url(../images/delimeter.png) no-repeat 0 center;
+	position: relative;
 }
 .bottom nav ul li:last-child:after{
 	content: '';
@@ -312,17 +315,84 @@ header .work_time span{
 }
 .bottom nav ul li a{
 	padding:0 29px 0 30px;
-	line-height:75px;
+	line-height:85px;
 	font-size:20px;
 	color:#4d454f;
 	text-decoration:none;
 	font-family: 'PT Serif';
+	display: inline-block;
+	background: url(../images/menu_bg.png) no-repeat 0 -9999px;
+	position: relative;
+	top:-6px;
+	border: 1px solid transparent;
 }
-
-.bottom nav ul li a:hover, .bottom nav .active a{
+.bottom nav ul li.sub_menu:hover > a{
+	border: 1px solid #f5efeb;
+	border-radius: 3px 3px 0 0;
+	box-shadow: 0 0 8px -1px rgba(0,0,0,0.3);
+}
+.bottom nav ul li.sub_menu a:after{
+	display: block;
+	width:100%;
+	content: ' ';
+	height: 6px;
+	background: url(../images/menu_drop.png) no-repeat center 0;
+	position: absolute;
+	top:60px;
+	left:0;
+}
+.bottom nav ul li:hover a, .bottom nav .active a{
 	color:#803973;
+	background: url(../images/menu_bg.png) repeat 0 0;
 }
 
+.bottom nav ul li ul{
+	position: absolute;
+	padding: 8px 0 0;
+	background: url(../images/menu_bg.png) repeat;
+	display: none;
+	width:120%;
+	top:83px;
+	border: 1px solid #f5efeb;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 0 0 8px -1px rgba(0,0,0,0.3);
+}
+.bottom nav ul li.sub_menu:hover > a:before{
+	display: block;
+	content: ' ';
+	width:100%;
+	height: 10px;
+	background: url(../images/menu_bg.png) repeat;
+	position: absolute;
+	left:0;
+	top:80px;
+	z-index: 3;
+	border: 1px solid #f5efeb;
+	border-bottom:0;
+	border-top: 0;
+	left: -1px;
+}
+.bottom nav ul li:hover ul{
+	display: block;
+}
+.bottom nav ul li ul li{
+	background: none;
+	display: block;
+}
+.bottom nav ul li ul li:after, .bottom nav ul li ul li:last-child:after{
+	display: none;
+}
+.bottom nav ul li ul li a{
+	font:italic 19px/38px 'PT Serif';
+	display: block;
+	top:0;
+}
+.bottom nav ul li ul li a:hover{
+	background: rgba(136,57,162,0.11);
+}
+.bottom nav ul li.sub_menu ul li a:after{
+	display: none;
+}
 .content_wrapper{
 	padding: 0 9px;
 }
