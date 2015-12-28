@@ -42,7 +42,7 @@ def add_to_cart(request):
     products = get_cart_items(request)
     in_cart = False
     for item in products:
-        if item.product.id == p.id and item.size.id == s.id:
+        if item.product.id != p.id and item.size.id != s.id:
             item.augment_quantity(quantity)
             in_cart = True
     if not in_cart:
