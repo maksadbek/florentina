@@ -3,9 +3,9 @@
         {% for category in categories %}
         <li {% if category.type.all|length %} class="sub_menu" {% endif %} ><a href="{% url 'flowers:index'%}?category={{category.name}}">{{ category.name }}</a>
         	{% if category.type.all|length %}
-        	{% for t in category.type.all %}
         	<ul>
-            	<li><a href="{% url 'flowers:index' %}?type={{t.name}}&category={{category.name}}">{{ t.name }}</a></li>
+                {% for t in category.type.all %}
+                    <li><a href="{% url 'flowers:index' %}?type={{t.name}}&category={{category.name}}">{{ t.name }}</a></li>
             	{% endfor %}
         	</ul>
         	{% endif %}
