@@ -20,5 +20,6 @@ def remove(request):
     item = utils.get_single_item(request, product_id)
     if item:
         item.delete()
+    count = utils.count_cart_items(request)
     context = {'cart_items': count}
     return JsonResponse(context)
