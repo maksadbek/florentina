@@ -1,4 +1,5 @@
 {% include "_partials/header.html" %}
+{% load isfavourite %}
 <div class="content">
     <div class="inner clearfix">
         <section>
@@ -27,11 +28,21 @@
                         {% for flower in flower_list %}
                             <div class="prod">
                                 <div class="prod_inside">
+                                    {% if not user.is_anonymous %}
                                     <div class="favorite">
-                                        <form>
-                                            <button></button>
-                                        </form>
+                                        {% if flower|isfavourite:user %}
+                                            <!-- remove from favourites -->
+                                            <form>
+                                                <button style="background-position: 0 -51px"></button>
+                                            </form>
+                                        {% else %}
+                                            <!-- add to favourites -->
+                                            <form>
+                                                <button></button>
+                                            </form>
+                                        {% endif %}
                                     </div>
+                                    {% endif %}
                                     <div class="image">
                                         <!-- sdelal hard code s razmerami TODO fix it -->
                                         <a href="#"><img width="200" height="200" src="{{ flower.img.url}}" /></a>
